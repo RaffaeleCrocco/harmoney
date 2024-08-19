@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { PORT } from "./config.js";
-const MONGODB_URL = process.env.mongodbURL;
+const MONGODB_URL = process.env.MONGODB_URL;
 import authRoute from "./routes/authRoute.js";
 import transactionRoute from "./routes/transactionRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
