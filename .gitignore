@@ -1,0 +1,8 @@
+# Ignore the backend config.js file
+backend/config.js
+
+# Ignore the frontend config.jsx file
+frontend/src/config.jsx
+
+# Ignore node_modules in the backend directory
+backend/node_modules/
