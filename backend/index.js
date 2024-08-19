@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
-import { PORT, mongodbURL } from "./config.js";
+import { PORT } from "./config.js";
+const MONGODB_URL = process.env.mongodbURL;
 import authRoute from "./routes/authRoute.js";
 import transactionRoute from "./routes/transactionRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
@@ -15,7 +16,7 @@ app.use("/transaction", transactionRoute);
 app.use("/category", categoryRoute);
 
 mongoose
-  .connect(mongodbURL)
+  .connect(MONGODB_URL)
   .then(() => {
     console.log("connected to database");
     app.listen(PORT, () => {

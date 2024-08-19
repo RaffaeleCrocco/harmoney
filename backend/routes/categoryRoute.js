@@ -1,6 +1,6 @@
 import { Category } from "../models/categoryModel.js";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config.js";
+const JWT_SECRET = process.env.JWT_SECRET;
 import express from "express";
 
 function getRandomHexColor() {
