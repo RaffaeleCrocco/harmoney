@@ -9,12 +9,14 @@ const CreateCategory = ({ setShowModal }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [hexColor, setHexColor] = useState("#D0D0D0");
   const [loading, setLoading] = useState(false);
 
   const handleSaveCategory = () => {
     const data = {
       name,
       description,
+      hexColor,
     };
     console.log(data);
     setLoading(true);
@@ -36,19 +38,27 @@ const CreateCategory = ({ setShowModal }) => {
   };
 
   return (
-    <div className="w-80 p-4 flex flex-col space-y-4">
+    <div className="w-full p-4 flex flex-col space-y-4">
       {/* <span className="text-xl font-medium">Nuova transazione</span> */}
       {loading ? (
         <Spinner />
       ) : (
         <div className="flex flex-col space-y-4">
           {/* Selezione del nome per la categoria */}
-          <input
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
-            placeholder="Nome della categoria"
-          />
+          <div className="flex gap-2">
+            <input
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              className="inline-flex w-full items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+              placeholder="Nome della categoria"
+            />
+            <input
+              type="color"
+              className="p-1 h-12 w-14 block bg-white border cursor-pointer rounded-md "
+              onChange={() => setHexColor(e.target.value)}
+              value={hexColor}
+            />
+          </div>
           {/* Descrizione della categoria */}
           <input
             onChange={(e) => setDescription(e.target.value)}

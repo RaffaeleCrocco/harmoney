@@ -3,12 +3,6 @@ import jwt from "jsonwebtoken";
 const JWT_SECRET = process.env.JWT_SECRET;
 import express from "express";
 
-function getRandomHexColor() {
-  const randomNumber = Math.floor(Math.random() * 16777215);
-  const hexString = randomNumber.toString(16).padStart(6, "0");
-  return `#${hexString}`;
-}
-
 const router = express.Router();
 
 // Middleware to check if token is valid and extract user info
@@ -32,7 +26,7 @@ router.use(authenticateToken);
 
 // Create a new Category
 router.post("/create", async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, hexColor } = req.body;
   const userId = req.user.userId; // Extract userId from the token
 
   try {
@@ -47,9 +41,6 @@ router.post("/create", async (req, res) => {
         message: "Category with this name already exists for this user",
       });
     }
-
-    // getting a random color for the category
-    const hexColor = getRandomHexColor();
 
     // Create the new category
     const newCategory = { name, description, userId, hexColor };

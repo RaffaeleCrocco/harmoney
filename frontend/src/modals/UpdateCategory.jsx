@@ -9,6 +9,7 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [hexColor, setHexColor] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
       .then((response) => {
         setName(response.data.data.name);
         setDescription(response.data.data.description);
+        setHexColor(response.data.data.hexColor);
         setLoading(false);
       })
       .catch((error) => {
@@ -34,6 +36,7 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
     const data = {
       name,
       description,
+      hexColor,
     };
     console.log(data);
     setLoading(true);
@@ -74,7 +77,7 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
   };
 
   return (
-    <div className="w-80 p-4 flex flex-col space-y-4">
+    <div className="p-4 flex flex-col space-y-4">
       <div className="flex justify-between">
         <span className="text-xl font-medium">Modifica</span>
         <div
@@ -89,13 +92,21 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
       ) : (
         <div className="flex flex-col space-y-4">
           {/* Selzione del nome per la categoria */}
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
-            placeholder="Nome della categoria"
-          />
+          <div className="flex gap-2">
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              className="inline-flex w-full items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+              placeholder="Nome della categoria"
+            />
+            <input
+              value={hexColor}
+              type="color"
+              className="p-1 h-12 w-14 block bg-white border cursor-pointer rounded-md "
+              onChange={() => setHexColor(e.target.value)}
+            />
+          </div>
           {/* Descrizione della categoria */}
           <input
             value={description}
