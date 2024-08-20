@@ -91,16 +91,13 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params; // Extract the ID from the URL parameters
-  const { name, description } = req.body;
+  const { name, description, hexColor } = req.body;
   const userId = req.user.userId; // Extract userId from the token
 
   try {
     if (!userId || !name) {
       return res.status(400).json({ message: "Missing fields on request" });
     }
-
-    // getting a random color for the category
-    const hexColor = getRandomHexColor();
 
     // Update the category fields
     const updatedCategory = await Category.findByIdAndUpdate(
