@@ -11,7 +11,8 @@ const TransactionsTable = ({
 }) => {
   return (
     <div className="w-full border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
-      {transactions.length > 0 ? (
+      {transactions.filter((transaction) => applyFilters(transaction)).length >
+      0 ? (
         transactions
           .sort((a, b) => new Date(b.time) - new Date(a.time))
           .filter((transaction) => applyFilters(transaction))
@@ -76,8 +77,8 @@ const TransactionsTable = ({
       ) : (
         <div
           onClick={() => {
+            setModalContent(1);
             setShowModal(true);
-            setModalContent(3);
           }}
           className="flex flex-col items-center justify-center my-10 gap-5 cursor-pointer"
         >

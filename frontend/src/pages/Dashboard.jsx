@@ -116,6 +116,9 @@ const Dashboard = () => {
           setFilters={setFilters}
           handleCategoriesTag={handleCategoriesTag}
           applyFilters={applyFilters}
+          setShowModal={setShowModal}
+          setModalContent={setModalContent}
+          setTransactionIdToUpdate={setTransactionIdToUpdate}
         />
       );
       break;
@@ -127,6 +130,9 @@ const Dashboard = () => {
           setFilters={setFilters}
           handleCategoriesTag={handleCategoriesTag}
           applyFilters={applyFilters}
+          setShowModal={setShowModal}
+          setModalContent={setModalContent}
+          setTransactionIdToUpdate={setTransactionIdToUpdate}
         />
       );
       break;
@@ -138,6 +144,9 @@ const Dashboard = () => {
           setFilters={setFilters}
           handleCategoriesTag={handleCategoriesTag}
           applyFilters={applyFilters}
+          setShowModal={setShowModal}
+          setModalContent={setModalContent}
+          setTransactionIdToUpdate={setTransactionIdToUpdate}
         />
       );
       break;

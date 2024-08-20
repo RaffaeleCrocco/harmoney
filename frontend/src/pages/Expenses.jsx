@@ -8,6 +8,9 @@ const Expenses = ({
   setFilters,
   handleCategoriesTag,
   applyFilters,
+  setShowModal,
+  setModalContent,
+  setTransactionIdToUpdate,
 }) => {
   useEffect(() => {
     setFilters((prevFilters) => ({
@@ -41,6 +44,9 @@ const Expenses = ({
           transactions={transactions}
           handleCategoriesTag={handleCategoriesTag}
           applyFilters={applyFilters}
+          setShowModal={setShowModal}
+          setModalContent={setModalContent}
+          setTransactionIdToUpdate={setTransactionIdToUpdate}
         />
       </div>
     </div>

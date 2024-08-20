@@ -7,6 +7,9 @@ const Withdrawals = ({
   setFilters,
   handleCategoriesTag,
   applyFilters,
+  setShowModal,
+  setModalContent,
+  setTransactionIdToUpdate,
 }) => {
   useEffect(() => {
     setFilters((prevFilters) => ({
@@ -40,6 +43,9 @@ const Withdrawals = ({
           transactions={transactions}
           handleCategoriesTag={handleCategoriesTag}
           applyFilters={applyFilters}
+          setShowModal={setShowModal}
+          setModalContent={setModalContent}
+          setTransactionIdToUpdate={setTransactionIdToUpdate}
         />
       </div>
     </div>
