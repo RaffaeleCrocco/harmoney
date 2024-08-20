@@ -97,6 +97,7 @@ const Home = () => {
                   <div className="relative">
                     <input
                       name="password"
+                      type="password"
                       onChange={handleChange}
                       className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-zinc-500 focus:ring-zinc-500 disabled:opacity-50 disabled:pointer-events-none"
                     />
@@ -129,6 +130,17 @@ const Home = () => {
           </div>
         </div>
       )}
+      <p className="font-semibold text-sm mt-5 text-center">
+        Made by{" "}
+        <a
+          className="underline"
+          href="https://raffaelecrocco.com"
+          target="_blank"
+        >
+          raffaelecrocco
+        </a>
+        .
+      </p>
     </div>
   );
 };
