@@ -176,7 +176,7 @@ const Dashboard = () => {
       );
       break;
     case 7:
-      renderedContent = <Settings />;
+      renderedContent = <Settings userId={user.userId} />;
       break;
     default:
       renderedContent = <div>Default content</div>;
