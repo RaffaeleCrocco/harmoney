@@ -2,7 +2,7 @@
   "name": "Harmoney",
   "short_name": "Harmoney",
   "description": "A money management app for personal use to achieve perfect harmony with your finances. Harmoney: money, with harmony.",
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
