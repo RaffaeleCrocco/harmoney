@@ -55,7 +55,7 @@ const CreateCategory = ({ setShowModal }) => {
             <input
               type="color"
               className="p-1 h-12 w-14 block bg-white border cursor-pointer rounded-md "
-              onChange={() => setHexColor(e.target.value)}
+              onChange={(e) => setHexColor(e.target.value)}
               value={hexColor}
             />
           </div>

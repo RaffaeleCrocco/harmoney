@@ -55,7 +55,7 @@ const CreateTransaction = ({ categories, setShowModal }) => {
   };
 
   return (
-    <div className="w-80 p-4 flex flex-col space-y-4">
+    <div className="p-4 flex flex-col space-y-4">
       {/* <span className="text-xl font-medium">Nuova transazione</span> */}
       {loading ? (
         <Spinner />

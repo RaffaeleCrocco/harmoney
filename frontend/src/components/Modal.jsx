@@ -50,7 +50,7 @@ const Modal = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="lg:w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-80 lg:-translate-y-1/2 z-50 bg-white rounded-md p-6"
+        className="w-80 lg:w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 lg:-translate-y-1/2 z-50 bg-white rounded-md p-6"
       >
         {renderedContent}
       </div>

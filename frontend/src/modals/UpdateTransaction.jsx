@@ -91,7 +91,7 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
   };
 
   return (
-    <div className="w-80 p-4 flex flex-col space-y-4">
+    <div className="p-4 flex flex-col space-y-4">
       <div className="flex justify-between">
         <span className="text-xl font-medium">Modifica</span>
         <div

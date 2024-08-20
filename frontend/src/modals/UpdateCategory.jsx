@@ -104,7 +104,7 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
               value={hexColor}
               type="color"
               className="p-1 h-12 w-14 block bg-white border cursor-pointer rounded-md "
-              onChange={() => setHexColor(e.target.value)}
+              onChange={(e) => setHexColor(e.target.value)}
             />
           </div>
           {/* Descrizione della categoria */}
