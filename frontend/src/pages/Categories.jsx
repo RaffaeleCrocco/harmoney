@@ -1,4 +1,5 @@
 import React from "react";
+import { FolderPlus } from "lucide-react";
 
 const Categories = ({
   categories,
@@ -22,19 +23,32 @@ const Categories = ({
       </div>
       <div className="min-w-full p-8">
         <div className="border border-zinc-800 rounded-md max-h-96 overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
-          {categories.map((category) => (
+          {categories.length > 0 ? (
+            categories.map((category) => (
+              <div
+                onClick={() => {
+                  setShowModal(true);
+                  setModalContent(4);
+                  setCategoryIdToUpdate(category._id);
+                }}
+                className="w-full py-0.5 border-b last:border-none border-gray-200 rounded-sm flex items-center hover:bg-gray-100 text-sm"
+                key={category._id}
+              >
+                <div className="w-36 mx-4 text-zinc-800">{category.name}</div>
+              </div>
+            ))
+          ) : (
             <div
               onClick={() => {
                 setShowModal(true);
-                setModalContent(4);
-                setCategoryIdToUpdate(category._id);
+                setModalContent(3);
               }}
-              className="w-full py-0.5 border-b last:border-none border-gray-200 rounded-sm flex items-center hover:bg-gray-100 text-sm"
-              key={category._id}
+              className="flex flex-col items-center justify-center my-10 gap-5 cursor-pointer"
             >
-              <div className="w-36 mx-4 text-zinc-800">{category.name}</div>
+              <p className="font-semibold">Nessuna categoria</p>
+              <FolderPlus size={30} className="animate-bounce" />
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>

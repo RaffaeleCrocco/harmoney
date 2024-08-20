@@ -7,7 +7,7 @@ import {
   eachDayOfInterval,
   endOfToday,
 } from "date-fns";
-import { TrendingDown, TrendingUp, Wallet } from "lucide-react";
+import { Calendar, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import DottedMonth from "./DottedMonth";
 import CategoryGraph from "./CategoryGraph";
 
@@ -173,32 +173,32 @@ const MoneyIland = ({ transactions }) => {
 
   return (
     <div className="w-full lg:w-64 lg:h-96 flex flex-col gap-6">
-      <div className="w-full p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden">
-        <div className="font-semibold flex gap-1 items-start">
-          <span className="text-sm">€</span>
-          <div className="w-full text-3xl leading-none flex justify-between gap-2">
-            {totalAmount.toFixed(2)} <Wallet size={30} strokeWidth={1} />
-          </div>
+      <div className="w-full p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden flex gap-1 font-semibold items-center">
+        <span className="text-sm">€</span>
+        <div className="w-full text-3xl leading-none me-auto">
+          {totalAmount.toFixed(2)}
         </div>
+        <Wallet size={30} />
       </div>
-      <div className="hidden lg:block w-full h-full p-6 border border-zinc-800 rounded-md overflow-hidden">
-        <div className="flex flex-col items-start text-lg leading-none">
-          <div className="font-semibold flex gap-1 items-start">
-            <span className="text-sm">€</span>
-            <div className="text-3xl leading-none flex gap-2">
-              {monthlyTotalAmount.toFixed(2)}
-            </div>
+      <div className="hidden lg:flex flex-col w-full h-full p-6 border border-zinc-800 rounded-md overflow-hidden">
+        <div className="w-full flex gap-1 font-semibold items-center">
+          <span className="text-sm">€</span>
+          <div className="w-full text-3xl leading-none me-auto">
+            {monthlyTotalAmount.toFixed(2)}
           </div>
+          <Calendar size={30} />
         </div>
-        <div className="mt-2 text-sm flex gap-1 items-center leading-none">
-          <TrendingDown size={20} strokeWidth={1} />
-          <span>{biggestExpenseOfTheMonth.toFixed(2)}</span>
-          uscite
+        <div className="mt-auto text-sm">
+          Uscita complessiva maggiore del mese in un solo giorno:{" "}
+          <span className="font-semibold">
+            &#8364; {biggestExpenseOfTheMonth.toFixed(2)}
+          </span>
         </div>
-        <div className="text-sm flex gap-1 items-center leading-none">
-          <TrendingUp size={20} strokeWidth={1} />
-          <span>{biggestIncomeOfTheMonth.toFixed(2)}</span>
-          entrate
+        <div className="mt-2 text-sm">
+          Entrata complessiva maggiore del mese in un solo giorno:{" "}
+          <span className="font-semibold">
+            &#8364; {biggestIncomeOfTheMonth.toFixed(2)}
+          </span>
         </div>
         <div className="mt-5 flex flex-wrap gap-1">
           {/* <DottedMonth
