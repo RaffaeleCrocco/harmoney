@@ -217,6 +217,7 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
               className="cursor-pointer flex items-center gap-x-2 text-sm border-none h-full w-full focus:border-none"
               onChange={handleCategoryChange}
             >
+              <option>Seleziona una categoria</option>
               {categories?.map((category) => (
                 <option key={category._id} value={category._id}>
                   {category.name}

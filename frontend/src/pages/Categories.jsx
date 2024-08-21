@@ -34,7 +34,9 @@ const Categories = ({
                 className="w-full py-2 px-4 lg:py-0.5 border-b last:border-none border-gray-200 rounded-sm flex items-center justify-between hover:bg-gray-100 text-sm"
                 key={category._id}
               >
-                <div className="w-36 text-zinc-800">{category.name}</div>
+                <div className="w-36 text-zinc-800">
+                  {category.name} : {category._id}
+                </div>
                 <div
                   style={{ backgroundColor: category.hexColor }}
                   className="h-5 w-5 rounded-md"

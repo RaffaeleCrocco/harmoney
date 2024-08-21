@@ -1,7 +1,7 @@
 import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-const JWT_SECRET = process.env.JWT_SECRET;
+import { JWT_SECRET } from "../config.js";
 import express from "express";
 
 const router = express.Router();
