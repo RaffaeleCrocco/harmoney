@@ -66,13 +66,13 @@ const CreateTransaction = ({ categories, setShowModal }) => {
       <div
         style={{
           backgroundColor: hexColor,
-          width: 20,
-          height: 20,
+          width: 18,
+          height: 18,
           borderRadius: 4,
-          marginRight: 10,
+          marginRight: 8,
         }}
       />
-      {name}
+      {name.slice(0, 12)}
     </div>
   );
 

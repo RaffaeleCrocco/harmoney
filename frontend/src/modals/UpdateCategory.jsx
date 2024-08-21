@@ -82,9 +82,9 @@ const UpdateCategory = ({ setShowModal, categoryId, setContent }) => {
         <span className="text-xl font-medium">Modifica</span>
         <div
           onClick={() => handleDeleteCategory()}
-          className="cursor-pointer text-center py-1.5 px-4 text-sm font-medium rounded-md border border-red-800 text-red-800"
+          className="cursor-pointer text-center py-1.5 text-sm font-semibold font-sm text-red-800"
         >
-          Elimina categoria
+          Elimina
         </div>
       </div>
       {loading ? (

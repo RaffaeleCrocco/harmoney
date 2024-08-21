@@ -103,13 +103,13 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
       <div
         style={{
           backgroundColor: hexColor,
-          width: 20,
-          height: 20,
+          width: 18,
+          height: 18,
           borderRadius: 4,
-          marginRight: 10,
+          marginRight: 8,
         }}
       />
-      {name}
+      {name.slice(0, 12)}
     </div>
   );
 
@@ -119,9 +119,9 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
         <span className="text-xl font-medium">Modifica</span>
         <div
           onClick={() => handleDeleteTransaction()}
-          className="cursor-pointer text-center py-1.5 px-4 text-sm font-medium rounded-md border border-red-800 text-red-800"
+          className="cursor-pointer text-center py-1.5 text-sm font-semibold font-sm text-red-800"
         >
-          Elimina transazione
+          Elimina
         </div>
       </div>
       {loading ? (
