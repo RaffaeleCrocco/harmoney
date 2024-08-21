@@ -156,6 +156,7 @@ const Dashboard = () => {
       renderedContent = (
         <Categories
           categories={categories}
+          transactions={transactions}
           filters={filters}
           setFilters={setFilters}
           handleCategoriesTag={handleCategoriesTag}
