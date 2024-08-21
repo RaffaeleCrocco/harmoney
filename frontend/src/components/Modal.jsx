@@ -45,7 +45,7 @@ const Modal = ({
 
   return (
     <div
-      className="absolute top-0 left-0 h-screen w-screen bg-opacity-20 bg-black"
+      className="fixed top-0 left-0 h-full w-full bg-opacity-20 bg-black overflow-hidden"
       onClick={() => setShowModal(false)}
     >
       <div

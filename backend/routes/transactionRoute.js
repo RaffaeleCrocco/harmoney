@@ -110,34 +110,29 @@ router.put("/:id", async (req, res) => {
       return res.status(404).json({ message: "Transaction not found" });
     }
 
-    // Handle case where categoryIds is not provided or is empty
-    if (!Array.isArray(categoryIds) || categoryIds.length === 0) {
-      return res
-        .status(400)
-        .json({ message: "No valid category IDs provided" });
-    }
-
-    // Fetch valid categories
-    const categoryDocuments = await Category.find({
-      _id: { $in: categoryIds },
-      userId,
-    }).select("_id");
-
-    // Map the category documents to an array of strings
-    const validCategoryIds = categoryDocuments.map((category) =>
-      category._id.toString()
-    );
+    // If categoryIds is not provided or is an empty array, use an empty array for categoryIds
+    const validCategoryIds =
+      Array.isArray(categoryIds) && categoryIds.length > 0
+        ? await Category.find({
+            _id: { $in: categoryIds },
+            userId,
+          })
+            .select("_id")
+            .then((docs) => docs.map((doc) => doc._id.toString()))
+        : [];
 
     // Update the transaction fields
     const updatedTransaction = await Transaction.findByIdAndUpdate(
       id,
-      { type, amount, title, date, categoryIds: validCategoryIds },
+      {
+        type,
+        amount,
+        title,
+        date,
+        categoryIds: validCategoryIds, // Use validCategoryIds, even if it's an empty array
+      },
       { new: true, runValidators: true } // Return the updated document and apply validators
     );
-
-    // console.log("Category IDs provided:", categoryIds);
-    // console.log("Fetched category documents:", categoryDocuments);
-    // console.log("Valid category IDs:", validCategoryIds);
 
     res.status(200).json(updatedTransaction);
   } catch (error) {

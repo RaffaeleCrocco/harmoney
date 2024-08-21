@@ -3,6 +3,7 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
+import Select from "react-select";
 
 const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
   const token = localStorage.getItem("token");
@@ -11,7 +12,7 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [categoryIds, setCategoryIds] = useState([""]);
+  const [categoryIds, setCategoryIds] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -62,15 +63,6 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
       });
   };
 
-  const handleCategoryChange = (e) => {
-    const selectedValue = e.target.value;
-    // Check if the selected value is already in the array
-    if (!categoryIds.includes(selectedValue)) {
-      // Update the state with the new category ID
-      setCategoryIds((prevIds) => [...prevIds, selectedValue]);
-    }
-  };
-
   const handleDeleteTransaction = () => {
     setLoading(true);
     axios
@@ -89,6 +81,37 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
         console.log(error);
       });
   };
+
+  const handleCategoryChange = (selectedOptions) => {
+    // Extract the category IDs from the selected options
+    const ids = selectedOptions
+      ? selectedOptions.map((option) => option._id)
+      : [];
+    setCategoryIds(ids);
+    console.log(ids);
+  };
+
+  const formatOptionLabel = ({ name, hexColor }) => (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "2px 10px 2px 5px",
+        borderRadius: "4px",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: hexColor,
+          width: 20,
+          height: 20,
+          borderRadius: 4,
+          marginRight: 10,
+        }}
+      />
+      {name}
+    </div>
+  );
 
   return (
     <div className="p-4 flex flex-col space-y-4">
@@ -207,24 +230,20 @@ const UpdateTransaction = ({ categories, setShowModal, transactionId }) => {
               className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 rounded-md text-sm "
             />
           </div>
-          {/* Selzione della categoria della transazione */}
-          <div className="border h-12 border-gray-200 text-zinc-800 rounded-md py-1 ps-2 pe-4">
-            <label htmlFor="category-select" className="sr-only">
-              Select Category
-            </label>
-            <select
-              id="category-select"
-              className="cursor-pointer flex items-center gap-x-2 text-sm border-none h-full w-full focus:border-none"
-              onChange={handleCategoryChange}
-            >
-              <option>Seleziona una categoria</option>
-              {categories?.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Selezione della categoria della transazione */}
+          <Select
+            isMulti
+            getOptionValue={(option) => option._id}
+            name="categories"
+            options={categories}
+            formatOptionLabel={formatOptionLabel}
+            onChange={handleCategoryChange}
+            value={categories.filter((option) =>
+              categoryIds.includes(option._id)
+            )}
+            placeholder="-"
+          />
+
           <div className="flex gap-5">
             <div
               onClick={() => {
