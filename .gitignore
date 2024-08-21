@@ -3,10 +3,3 @@ backend/node_modules/
 
 # Ignore environment variable files
 backend/.env
-
-frontend/.env
-frontend/.env.local
-frontend/.env.*.local
-
-
-
