@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+// src/config.jsx
+import * as fs from 'fs';
+import * as path from 'path';
 
-// Read and parse the .env file
 const envFilePath = path.resolve(__dirname, '../.env');
 const envContent = fs.readFileSync(envFilePath, 'utf8');
 
@@ -13,6 +13,4 @@ envContent.split('\n').forEach(line => {
   }
 });
 
-module.exports = {
-  BASEURL: envVars.BASEURL
-};
+export const BASEURL = envVars.BASEURL; 
