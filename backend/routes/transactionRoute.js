@@ -110,24 +110,21 @@ router.put("/:id", async (req, res) => {
       return res.status(404).json({ message: "Transaction not found" });
     }
 
-    // Validate fields if they are provided
+    let categories = [""];
+
+    // Obtain a categories array with only the valids one from the ones that are passed
     if (categoryIds && categoryIds.length > 0) {
       // Fetch categories by IDs
-      const categories = await Category.find({
+      categories = await Category.find({
         _id: { $in: categoryIds },
         userId,
       });
-
-      // Check if the number of valid categories matches the number of provided categoryIds
-      if (categories.length !== categoryIds.length) {
-        return res.status(400).json({ message: "Invalid categories" });
-      }
     }
 
     // Update the transaction fields
     const updatedTransaction = await Transaction.findByIdAndUpdate(
       id,
-      { type, amount, title, date, categoryIds },
+      { type, amount, title, date, categories },
       { new: true, runValidators: true } // Return the updated document and apply validators
     );
 
