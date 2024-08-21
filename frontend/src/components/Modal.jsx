@@ -45,7 +45,7 @@ const Modal = ({
 
   return (
     <div
-      className="fixed top-0 left-0 h-full w-full bg-opacity-20 bg-black overflow-hidden"
+      className="fixed top-0 left-0 h-full w-full backdrop-blur-sm bg-white/10 overflow-hidden"
       onClick={() => setShowModal(false)}
     >
       <div

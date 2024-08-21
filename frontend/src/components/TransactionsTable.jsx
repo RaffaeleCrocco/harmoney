@@ -35,18 +35,29 @@ const TransactionsTable = ({
                   hour12: false,
                 })}
               </div>
-              <div className="ms-3 lg:ms-0 w-full lg:min-w-72 max-w-96 truncate">
+              <div className="flex lg:hidden justify-end gap-1 ms-2">
+                {handleCategoriesTag(transaction.categoryIds).map(
+                  (category, item) => (
+                    <div
+                      className="h-4 w-1 rounded-sm"
+                      key={item}
+                      style={{ backgroundColor: category.hexColor }}
+                    ></div>
+                  )
+                )}
+              </div>
+              <div className="ms-2 lg:ms-0 w-full lg:min-w-72 max-w-96 truncate">
                 <div className="text-zinc-800">{transaction.title}</div>
               </div>
               <div className="w-full hidden lg:flex justify-end">
                 <div className="flex h-full flex-wrap gap-2">
                   {handleCategoriesTag(transaction.categoryIds).map(
-                    (name, item) => (
+                    (category, item) => (
                       <div
                         className="bg-zinc-100 px-2.5 rounded-sm text-xs text-zinc-600"
                         key={item}
                       >
-                        {name}
+                        {category.name}
                       </div>
                     )
                   )}

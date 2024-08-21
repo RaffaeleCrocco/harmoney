@@ -69,7 +69,9 @@ const Dashboard = () => {
   const handleCategoriesTag = (categoryIds) => {
     return categoryIds.map((id) => {
       const category = categories.find((category) => category._id === id);
-      return category ? category.name : "Eliminata";
+      return category
+        ? { name: category.name, hexColor: category.hexColor }
+        : { name: "Eliminata", hexColor: "#dedede" };
     });
   };
 
