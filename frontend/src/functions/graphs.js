@@ -66,7 +66,7 @@ export const getTotalExpensesForCategories = (
 
   return {
     categories: filteredData,
-    maxExpense: maxExpense.toFixed(2),
+    maxExpense: maxExpense.toFixed(0),
   };
 };
 

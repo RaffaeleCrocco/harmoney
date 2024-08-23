@@ -13,18 +13,34 @@ import useDataStore from "../store/useDataStore";
 import { getDailyExpensesAndIncomes } from "../functions/graphs";
 
 const TransactionsGraph = () => {
+  //store
   const { transactions } = useDataStore();
-
+  //component state
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("thisMonth");
+  const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
     setData(getDailyExpensesAndIncomes(transactions, period));
   }, [period]);
 
   return (
-    <div className="w-full h-96 p-1 lg:p-6 border border-zinc-800 rounded-md overflow-hidden mb-8">
-      <div className="flex mb-5 justify-end text-xs">
+    <div
+      className={
+        fullscreen
+          ? "fixed top-0 left-0 z-50 w-full h-full bg-white p-10"
+          : `w-full h-96 p-1 lg:p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden mb-8`
+      }
+    >
+      <div className="flex mb-5 text-xs">
+        <button
+          onClick={() => setFullscreen(!fullscreen)}
+          className={`me-auto px-4 py-1 border rounded-md ${
+            fullscreen ? "bg-zinc-800 text-white" : ""
+          }`}
+        >
+          Fullscreen
+        </button>
         <button
           onClick={() => setPeriod("thisMonth")}
           className={`px-4 py-1 ${

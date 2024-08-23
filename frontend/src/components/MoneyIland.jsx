@@ -7,9 +7,7 @@ import {
   eachDayOfInterval,
   endOfToday,
 } from "date-fns";
-import { Calendar, TrendingDown, TrendingUp, Wallet } from "lucide-react";
-import DottedMonth from "./DottedMonth";
-import CategoryGraph from "./CategoryGraph";
+import { Calendar, Wallet } from "lucide-react";
 import useDataStore from "../store/useDataStore";
 
 const MoneyIland = () => {
