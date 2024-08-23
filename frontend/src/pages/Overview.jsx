@@ -3,6 +3,8 @@ import TransactionsTable from "../components/TransactionsTable";
 import MoneyIland from "../components/MoneyIland";
 import useContentStore from "../store/useContentStore";
 import useFiltersStore from "../store/useFiltersStore";
+import CategoryGraph from "../components/CategoryGraph";
+import TransactionsGraph from "../components/TransactionsGraph";
 
 const Overview = () => {
   //store
@@ -50,8 +52,12 @@ const Overview = () => {
           Crea nuova
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row p-5 lg:p-8 gap-5 lg:gap-8">
+      <div className="flex flex-col lg:flex-row p-5 lg:p-8 gap-5 lg:gap-8 pb-0 lg:pb-0">
         <MoneyIland />
+        <CategoryGraph />
+        <TransactionsGraph />
+      </div>
+      <div className="flex flex-col lg:flex-row p-5 lg:p-8 gap-5 lg:gap-8 pt-0 lg:pt-0">
         <TransactionsTable />
       </div>
     </div>

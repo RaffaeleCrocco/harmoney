@@ -183,7 +183,6 @@ const CreateTransaction = () => {
                   setDate("");
                 }
               }}
-              value={date}
               type="datetime-local"
               className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 rounded-md text-sm "
             />

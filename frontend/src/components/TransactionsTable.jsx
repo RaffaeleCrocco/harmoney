@@ -15,12 +15,12 @@ const TransactionsTable = () => {
   // Apply filters and sort the transactions
   const filteredTransactions = transactions
     .filter((transaction) => applyFilters(transaction, filters))
-    .sort((a, b) => new Date(b.time) - new Date(a.time));
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const hasTransactions = filteredTransactions.length > 0;
 
   return (
-    <div className="w-full border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+    <div className="w-full h-full border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
       {hasTransactions ? (
         filteredTransactions.map((transaction) => (
           <div
@@ -52,7 +52,7 @@ const TransactionsTable = () => {
                 )
               )}
             </div>
-            <div className="ms-2 lg:ms-0 w-full lg:min-w-72 max-w-96 truncate">
+            <div className="ms-2 lg:ms-0 w-full lg:w-1/3 truncate">
               <div className="text-zinc-800">{transaction.title}</div>
             </div>
             <div className="w-full hidden lg:flex justify-end">

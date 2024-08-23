@@ -7,77 +7,82 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { startOfMonth, endOfMonth, parseISO } from "date-fns";
 import useDataStore from "../store/useDataStore";
+import { getTotalExpensesForCategories } from "../functions/graphs";
 
 const CategoryGraph = () => {
   const { categories, transactions } = useDataStore();
 
   const [data, setData] = useState([]);
+  const [period, setPeriod] = useState("thisMonth");
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [maxExpenses, setMaxExpenses] = useState(0);
 
   useEffect(() => {
-    setData(getTotalExpensesForCategories(categories, transactions));
-  }, []);
-
-  const getTotalExpensesForCategories = (categories, transactions) => {
-    // Get the current date and the start/end of the month
-    const now = new Date();
-    const startOfMonthDate = startOfMonth(now);
-    const endOfMonthDate = endOfMonth(now);
-
-    const expensesData = categories.map((category) => {
-      // Filter transactions for the specific category
-      const filteredTransactions = transactions.filter((transaction) => {
-        const transactionDate = parseISO(transaction.date); // Assuming date is in ISO format
-        const isExpense = transaction.type === "expense";
-        const isInCurrentMonth =
-          transactionDate >= startOfMonthDate &&
-          transactionDate <= endOfMonthDate;
-        const hasMatchingCategory = transaction.categoryIds.includes(
-          category._id
-        );
-
-        return isExpense && isInCurrentMonth && hasMatchingCategory;
-      });
-
-      // Sum up the total expenses for this category
-      const totalExpenses = filteredTransactions.reduce(
-        (sum, transaction) => sum + transaction.amount,
-        0
-      );
-
-      if (totalExpenses == 0) return null;
-
-      // Return the category object with an additional 'amount' field
-      return {
-        ...category,
-        amount: totalExpenses.toFixed(2),
-      };
-    });
-
-    // Filter out null values (categories with zero expenses)
-    return expensesData.filter((data) => data !== null);
-  };
+    const functionData = getTotalExpensesForCategories(
+      categories,
+      transactions,
+      period
+    );
+    setData(functionData.categories);
+    setMaxExpenses(functionData.maxExpense);
+  }, [period]);
 
   return (
     <div className="w-full h-96 p-1 lg:p-6 border border-zinc-800 rounded-md overflow-hidden mb-8">
-      <ResponsiveContainer width="100%" height="100%">
+      <div className="flex mb-5 justify-end text-xs">
+        <button
+          onClick={() => setPeriod("thisMonth")}
+          className={`px-4 py-1 ${
+            period === "thisMonth" ? "bg-zinc-800 text-white rounded-md" : ""
+          }`}
+        >
+          Questo mese
+        </button>
+        <button
+          onClick={() => setPeriod("thisYear")}
+          className={`px-4 py-1 ${
+            period === "thisYear" ? "bg-zinc-800 text-white rounded-md" : ""
+          }`}
+        >
+          Quest'anno
+        </button>
+        <button
+          onClick={() => setPeriod("allTime")}
+          className={`px-4 py-1 ${
+            period === "allTime" ? "bg-zinc-800 text-white rounded-md" : ""
+          }`}
+        >
+          Sempre
+        </button>
+      </div>
+      <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis dataKey="amount" width={20} />
+          <YAxis
+            dataKey="amount"
+            width={30}
+            domain={([dataMin, dataMax]) => {
+              return [0, maxExpenses];
+            }}
+          />
           <Tooltip />
           <Bar
             dataKey="amount"
             name="Totale spesa"
-            activeBar={<Rectangle fill="#000000" />}
+            onMouseEnter={(data, index) => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.hexColor} />
+              <Cell
+                key={`cell-${index}`}
+                fill={index === hoveredIndex ? entry.hexColor : "#000000"}
+              />
             ))}
           </Bar>
         </BarChart>
