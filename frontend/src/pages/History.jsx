@@ -6,6 +6,10 @@ const History = () => {
   //store
   const { filters, setFilters } = useFiltersStore();
 
+  useEffect(() => {
+    setFilters({ type: "all" });
+  }, []);
+
   return (
     <div>
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
