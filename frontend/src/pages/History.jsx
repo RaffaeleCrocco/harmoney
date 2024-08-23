@@ -1,15 +1,10 @@
 import React, { useEffect } from "react";
-import { MoveRight, TrendingDown, TrendingUp } from "lucide-react";
 import TransactionsTable from "../components/TransactionsTable";
 import useFiltersStore from "../store/useFiltersStore";
 
 const History = () => {
   //store
   const { filters, setFilters } = useFiltersStore();
-
-  useEffect(() => {
-    setFilters({ type: "expense" });
-  }, []);
 
   return (
     <div>

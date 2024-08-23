@@ -64,7 +64,7 @@ const Categories = () => {
         </div>
       </div>
       <div className="min-w-full p-5 lg:p-8">
-        <CategoryGraph data={categories} />
+        {/* <CategoryGraph /> */}
         <div className="border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
           {categories.length > 0 ? (
             categories.map((category) => (

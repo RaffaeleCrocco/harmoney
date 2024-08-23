@@ -8,7 +8,7 @@ const Withdrawals = () => {
   const { filters, setFilters } = useFiltersStore();
 
   useEffect(() => {
-    setFilters({ type: "expense" });
+    setFilters({ type: "withdrawal" });
   }, []);
 
   return (
