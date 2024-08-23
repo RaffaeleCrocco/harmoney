@@ -11,18 +11,26 @@ import {
 } from "recharts";
 import useDataStore from "../store/useDataStore";
 import { getDailyExpensesAndIncomes } from "../functions/graphs";
+import { applyFilters } from "../functions/filters";
+import useFiltersStore from "../store/useFiltersStore";
 
 const TransactionsGraph = () => {
   //store
   const { transactions } = useDataStore();
+  const { filters } = useFiltersStore();
   //component state
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("thisMonth");
   const [fullscreen, setFullscreen] = useState(false);
 
   useEffect(() => {
-    setData(getDailyExpensesAndIncomes(transactions, period));
-  }, [period]);
+    // Apply filters and sort the transactions
+    const filteredTransactions = transactions.filter((transaction) =>
+      applyFilters(transaction, filters)
+    );
+
+    setData(getDailyExpensesAndIncomes(filteredTransactions, period));
+  }, [period, filters]);
 
   return (
     <div

@@ -12,10 +12,13 @@ import {
 } from "recharts";
 import useDataStore from "../store/useDataStore";
 import { getTotalExpensesForCategories } from "../functions/graphs";
+import useFiltersStore from "../store/useFiltersStore";
+import { applyFilters } from "../functions/filters";
 
 const CategoryGraph = () => {
   //store
   const { categories, transactions } = useDataStore();
+  const { filters } = useFiltersStore();
   //component state
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("thisMonth");
@@ -25,14 +28,19 @@ const CategoryGraph = () => {
   const [maxExpenses, setMaxExpenses] = useState(0);
 
   useEffect(() => {
+    // Apply filters and sort the transactions
+    const filteredTransactions = transactions.filter((transaction) =>
+      applyFilters(transaction, filters)
+    );
+
     const functionData = getTotalExpensesForCategories(
       categories,
-      transactions,
+      filteredTransactions,
       period
     );
     setData(functionData.categories);
     setMaxExpenses(functionData.maxExpense);
-  }, [period]);
+  }, [period, filters]);
 
   return (
     <div
