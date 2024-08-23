@@ -22,6 +22,19 @@ const Overview = () => {
         <div className="hidden lg:block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
+            onChange={(e) => setFilters({ period: e.target.value })}
+            value={filters.period}
+          >
+            <option value="this_month">Questo mese</option>
+            <option value="this_week">Questa settimana</option>
+            <option value="today">Oggi</option>
+            <option value="this_trimester">Questo trimestre</option>
+            <option value="always">Sempre</option>
+          </select>
+        </div>
+        <div className="hidden lg:block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
+          <select
+            className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
             onChange={(e) => setFilters({ type: e.target.value })}
             value={filters.type}
           >

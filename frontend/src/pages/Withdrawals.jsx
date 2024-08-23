@@ -15,6 +15,19 @@ const Withdrawals = () => {
     <div>
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
         <div className="me-auto">Prelievi</div>
+        <div className="hidden lg:block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
+          <select
+            className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
+            onChange={(e) => setFilters({ period: e.target.value })}
+            value={filters.period}
+          >
+            <option value="this_month">Questo mese</option>
+            <option value="this_week">Questa settimana</option>
+            <option value="today">Oggi</option>
+            <option value="this_trimester">Questo trimestre</option>
+            <option value="always">Sempre</option>
+          </select>
+        </div>
         <div className="border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
