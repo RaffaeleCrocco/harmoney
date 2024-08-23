@@ -5,7 +5,7 @@ import CreateCategory from "../modals/CreateCategory";
 import UpdateCategory from "../modals/UpdateCategory";
 import useContentStore from "../store/useContentStore";
 
-const Modal = ({ transactionId, categoryId }) => {
+const Modal = () => {
   const { setShowModal, modalContent } = useContentStore();
   let renderedContent;
   switch (modalContent) {
@@ -13,14 +13,14 @@ const Modal = ({ transactionId, categoryId }) => {
       renderedContent = <CreateTransaction />;
       break;
     case 2:
-      renderedContent = <UpdateTransaction transactionId={transactionId} />;
+      renderedContent = <UpdateTransaction />;
       break;
     case 3:
       renderedContent = <CreateCategory />;
       break;
 
     case 4:
-      renderedContent = <UpdateCategory categoryId={categoryId} />;
+      renderedContent = <UpdateCategory />;
       break;
     default:
       renderedContent = <div>Default content</div>;

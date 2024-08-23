@@ -44,7 +44,8 @@ const useDataStore = create((set) => ({
     }
   },
 
-  setTansactionIdToUpdate: (content) => set({ transactionIdToUpdate: content }),
+  setTransactionIdToUpdate: (content) =>
+    set({ transactionIdToUpdate: content }),
   setCategoryIdToUpdate: (content) => set({ categoryIdToUpdate: content }),
 }));
 

@@ -7,9 +7,9 @@ import Select from "react-select";
 import useContentStore from "../store/useContentStore";
 import useDataStore from "../store/useDataStore";
 
-const UpdateTransaction = ({ transactionId }) => {
+const UpdateTransaction = () => {
   const { setShowModal } = useContentStore();
-  const { categories } = useDataStore();
+  const { categories, transactionIdToUpdate } = useDataStore();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [type, setType] = useState("");
@@ -22,7 +22,7 @@ const UpdateTransaction = ({ transactionId }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${BASEURL}/transaction/${transactionId}`, {
+      .get(`${BASEURL}/transaction/${transactionIdToUpdate}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,7 +51,7 @@ const UpdateTransaction = ({ transactionId }) => {
     };
     setLoading(true);
     axios
-      .put(`${BASEURL}/transaction/${transactionId}`, data, {
+      .put(`${BASEURL}/transaction/${transactionIdToUpdate}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,7 +70,7 @@ const UpdateTransaction = ({ transactionId }) => {
   const handleDeleteTransaction = () => {
     setLoading(true);
     axios
-      .delete(`${BASEURL}/transaction/${transactionId}`, {
+      .delete(`${BASEURL}/transaction/${transactionIdToUpdate}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

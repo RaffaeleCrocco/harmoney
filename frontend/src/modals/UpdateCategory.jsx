@@ -4,9 +4,11 @@ import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import useContentStore from "../store/useContentStore";
+import useDataStore from "../store/useDataStore";
 
-const UpdateCategory = ({ categoryId }) => {
+const UpdateCategory = () => {
   const { setShowModal } = useContentStore();
+  const { categoryIdToUpdate } = useDataStore();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ const UpdateCategory = ({ categoryId }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${BASEURL}/category/${categoryId}`, {
+      .get(`${BASEURL}/category/${categoryIdToUpdate}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +47,7 @@ const UpdateCategory = ({ categoryId }) => {
     console.log(data);
     setLoading(true);
     axios
-      .put(`${BASEURL}/category/${categoryId}`, data, {
+      .put(`${BASEURL}/category/${categoryIdToUpdate}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +66,7 @@ const UpdateCategory = ({ categoryId }) => {
   const handleDeleteCategory = () => {
     setLoading(true);
     axios
-      .delete(`${BASEURL}/category/${categoryId}`, {
+      .delete(`${BASEURL}/category/${categoryIdToUpdate}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
