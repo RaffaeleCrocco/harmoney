@@ -10,8 +10,10 @@ import {
 import { Calendar, TrendingDown, TrendingUp, Wallet } from "lucide-react";
 import DottedMonth from "./DottedMonth";
 import CategoryGraph from "./CategoryGraph";
+import useDataStore from "../store/useDataStore";
 
-const MoneyIland = ({ transactions }) => {
+const MoneyIland = () => {
+  const { transactions } = useDataStore();
   const [startingAmount, setStartingAmount] = useState(0); // Set default starting amount
   const [totalAmount, setTotalAmount] = useState(0);
   const [monthlyTotalAmount, setMonthlyTotalAmount] = useState(0);

@@ -3,41 +3,24 @@ import CreateTransaction from "../modals/CreateTransaction";
 import UpdateTransaction from "../modals/UpdateTransaction";
 import CreateCategory from "../modals/CreateCategory";
 import UpdateCategory from "../modals/UpdateCategory";
+import useContentStore from "../store/useContentStore";
 
-const Modal = ({
-  setShowModal,
-  modalContent,
-  categories,
-  transactionId,
-  categoryId,
-}) => {
+const Modal = ({ transactionId, categoryId }) => {
+  const { setShowModal, modalContent } = useContentStore();
   let renderedContent;
   switch (modalContent) {
     case 1:
-      renderedContent = (
-        <CreateTransaction
-          categories={categories}
-          setShowModal={setShowModal}
-        />
-      );
+      renderedContent = <CreateTransaction />;
       break;
     case 2:
-      renderedContent = (
-        <UpdateTransaction
-          categories={categories}
-          setShowModal={setShowModal}
-          transactionId={transactionId}
-        />
-      );
+      renderedContent = <UpdateTransaction transactionId={transactionId} />;
       break;
     case 3:
-      renderedContent = <CreateCategory setShowModal={setShowModal} />;
+      renderedContent = <CreateCategory />;
       break;
 
     case 4:
-      renderedContent = (
-        <UpdateCategory setShowModal={setShowModal} categoryId={categoryId} />
-      );
+      renderedContent = <UpdateCategory categoryId={categoryId} />;
       break;
     default:
       renderedContent = <div>Default content</div>;
@@ -46,7 +29,7 @@ const Modal = ({
   return (
     <div
       className="fixed top-0 left-0 h-full w-full backdrop-blur-sm bg-white/10 overflow-hidden"
-      onClick={() => setShowModal(false)}
+      onClick={() => setShowModal()}
     >
       <div
         onClick={(e) => e.stopPropagation()}

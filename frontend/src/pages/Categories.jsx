@@ -1,14 +1,13 @@
 import React from "react";
 import { FolderPlus } from "lucide-react";
 import { startOfMonth, endOfMonth, parseISO } from "date-fns";
+import useDataStore from "../store/useDataStore";
+import useContentStore from "../store/useContentStore";
 
-const Categories = ({
-  categories,
-  setShowModal,
-  setModalContent,
-  setCategoryIdToUpdate,
-  transactions,
-}) => {
+const Categories = () => {
+  const { categories, transactions, setCategoryIdToUpdate } = useDataStore();
+  const { setShowModal, setModalContent } = useContentStore();
+
   const getTotalExpensesForCategory = (category, transactions) => {
     // Ensure category is valid
     if (!category || !category._id) {

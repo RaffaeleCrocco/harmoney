@@ -3,16 +3,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import CoinAnimation from "../components/CoinAnimation";
+import useDataStore from "../store/useDataStore";
 
-const Settings = ({ userId }) => {
+const Settings = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const { user } = useDataStore();
+
   const handleDeleteUser = () => {
     setLoading(true);
     axios
-      .delete(`${BASEURL}/settings/delete-user/${userId}`, {
+      .delete(`${BASEURL}/settings/delete-user/${user.userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

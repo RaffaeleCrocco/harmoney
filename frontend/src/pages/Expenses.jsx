@@ -1,23 +1,17 @@
-import { MoveRight, TrendingDown, TrendingUp } from "lucide-react";
 import React, { useEffect } from "react";
 import TransactionsTable from "../components/TransactionsTable";
+import useFiltersStore from "../store/useFiltersStore";
 
-const Expenses = ({
-  transactions,
-  filters,
-  setFilters,
-  handleCategoriesTag,
-  applyFilters,
-  setShowModal,
-  setModalContent,
-  setTransactionIdToUpdate,
-}) => {
+const Expenses = () => {
+  //store
+  const { filters, setFilters } = useFiltersStore();
+
   useEffect(() => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      type: "expense",
-    }));
-  }, []);
+    console.log("eccomi");
+    setFilters({ type: "expense" });
+    console.log("eccomi2");
+  }, [setFilters]);
+
   return (
     <div>
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
@@ -25,12 +19,7 @@ const Expenses = ({
         <div className="border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
-            onChange={(e) =>
-              setFilters((prevFilters) => ({
-                ...prevFilters,
-                categories: e.target.value,
-              }))
-            }
+            onChange={(e) => setFilters({ categories: e.target.value })}
             value={filters.categories}
           >
             <option value="all">Tutte le transazioni</option>
@@ -40,14 +29,7 @@ const Expenses = ({
         </div>
       </div>
       <div className="flex m-8 gap-8">
-        <TransactionsTable
-          transactions={transactions}
-          handleCategoriesTag={handleCategoriesTag}
-          applyFilters={applyFilters}
-          setShowModal={setShowModal}
-          setModalContent={setModalContent}
-          setTransactionIdToUpdate={setTransactionIdToUpdate}
-        />
+        <TransactionsTable />
       </div>
     </div>
   );

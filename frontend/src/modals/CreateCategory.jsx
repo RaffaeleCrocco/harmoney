@@ -3,8 +3,10 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
+import useContentStore from "../store/useContentStore";
 
-const CreateCategory = ({ setShowModal }) => {
+const CreateCategory = () => {
+  const { setShowModal } = useContentStore();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [name, setName] = useState("");

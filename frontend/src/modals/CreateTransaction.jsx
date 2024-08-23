@@ -4,8 +4,12 @@ import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import Select from "react-select";
+import useDataStore from "../store/useDataStore";
+import useContentStore from "../store/useContentStore";
 
-const CreateTransaction = ({ categories, setShowModal }) => {
+const CreateTransaction = () => {
+  const { setShowModal } = useContentStore();
+  const { categories } = useDataStore();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [type, setType] = useState("expense");

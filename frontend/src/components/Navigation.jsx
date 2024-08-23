@@ -3,8 +3,12 @@ import { LogOut } from "lucide-react";
 import harmoneylogo from "../assets/harmoney-logo.svg";
 import harmoneyicon from "../assets/icon.svg";
 import { useNavigate } from "react-router-dom";
+import useDataStore from "../store/useDataStore";
+import useContentStore from "../store/useContentStore";
 
-const Navigation = ({ user, content, setContent }) => {
+const Navigation = () => {
+  const { user } = useDataStore();
+  const { content, setContent } = useContentStore();
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.clear("token");
@@ -25,7 +29,7 @@ const Navigation = ({ user, content, setContent }) => {
         <div className="flex gap-3 items-center">
           <div className="flex flex-col items-end">
             <p className="leading-tight">
-              <span className="font-semibold">{user.username}</span>
+              <span className="font-semibold">{user?.username}</span>
             </p>
             <p
               onClick={handleLogout}
@@ -36,7 +40,7 @@ const Navigation = ({ user, content, setContent }) => {
           </div>
           <img
             className="w-10 h-10 border-2 border-zinc-600 rounded-full"
-            src={`https://api.dicebear.com/9.x/notionists-neutral/svg?backgroundColor=ffffff&seed=${user.userId}`}
+            src={`https://api.dicebear.com/9.x/notionists-neutral/svg?backgroundColor=ffffff&seed=${user?.userId}`}
           />
         </div>
       </div>

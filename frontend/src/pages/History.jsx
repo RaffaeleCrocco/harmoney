@@ -1,20 +1,16 @@
 import React, { useEffect } from "react";
 import { MoveRight, TrendingDown, TrendingUp } from "lucide-react";
 import TransactionsTable from "../components/TransactionsTable";
+import useFiltersStore from "../store/useFiltersStore";
 
-const History = ({
-  transactions,
-  filters,
-  setFilters,
-  handleCategoriesTag,
-  applyFilters,
-}) => {
+const History = () => {
+  //store
+  const { filters, setFilters } = useFiltersStore();
+
   useEffect(() => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      type: "all",
-    }));
+    setFilters({ type: "expense" });
   }, []);
+
   return (
     <div>
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
@@ -22,12 +18,7 @@ const History = ({
         <div className="border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
-            onChange={(e) =>
-              setFilters((prevFilters) => ({
-                ...prevFilters,
-                type: e.target.value,
-              }))
-            }
+            onChange={(e) => setFilters({ type: e.target.value })}
             value={filters.type}
           >
             <option value="all">Tutte le transazioni</option>
@@ -39,12 +30,7 @@ const History = ({
         <div className="border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
-            onChange={(e) =>
-              setFilters((prevFilters) => ({
-                ...prevFilters,
-                categories: e.target.value,
-              }))
-            }
+            onChange={(e) => setFilters({ categories: e.target.value })}
             value={filters.categories}
           >
             <option value="all">Tutte le transazioni</option>
@@ -54,11 +40,7 @@ const History = ({
         </div>
       </div>
       <div className="flex m-8 gap-8">
-        <TransactionsTable
-          transactions={transactions}
-          handleCategoriesTag={handleCategoriesTag}
-          applyFilters={applyFilters}
-        />
+        <TransactionsTable />
       </div>
     </div>
   );
