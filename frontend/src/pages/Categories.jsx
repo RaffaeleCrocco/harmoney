@@ -1,53 +1,12 @@
 import React from "react";
 import { FolderPlus } from "lucide-react";
-import { startOfMonth, endOfMonth, parseISO } from "date-fns";
 import useDataStore from "../store/useDataStore";
 import useContentStore from "../store/useContentStore";
 import CategoryGraph from "../components/CategoryGraph";
 
 const Categories = () => {
-  const { categories, transactions, setCategoryIdToUpdate } = useDataStore();
+  const { categories, setCategoryIdToUpdate } = useDataStore();
   const { setShowModal, setModalContent } = useContentStore();
-
-  const getTotalExpensesForCategory = (category, transactions) => {
-    // Ensure category is valid
-    if (!category || !category._id) {
-      return 0;
-    }
-
-    // Get the current date and the start/end of the month
-    const now = new Date();
-    const startOfMonthDate = startOfMonth(now);
-    const endOfMonthDate = endOfMonth(now);
-
-    // Filter transactions
-    const filteredTransactions = transactions.filter((transaction) => {
-      const transactionDate = parseISO(transaction.date); // Assuming date is in ISO format
-      const isExpense = transaction.type === "expense";
-      const isInCurrentMonth =
-        transactionDate >= startOfMonthDate &&
-        transactionDate <= endOfMonthDate;
-      const hasMatchingCategory = transaction.categoryIds.includes(
-        category._id
-      );
-
-      return isExpense && isInCurrentMonth && hasMatchingCategory;
-    });
-
-    // Sum up the total expenses
-    const totalExpenses = filteredTransactions.reduce(
-      (sum, transaction) => sum + transaction.amount,
-      0
-    );
-
-    if (totalExpenses == 0) {
-      return ""; //no espenses for that category this month
-    }
-    return new Intl.NumberFormat("it-IT", {
-      style: "currency",
-      currency: "EUR",
-    }).format(totalExpenses); //formatted expenses
-  };
 
   return (
     <div>
@@ -63,9 +22,9 @@ const Categories = () => {
           Crea nuova
         </div>
       </div>
-      <div className="min-w-full p-5 lg:p-8">
-        {/* <CategoryGraph /> */}
-        <div className="border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+      <div className="flex flex-col lg:flex-row p-5 lg:p-8 gap-5 lg:gap-8">
+        <CategoryGraph />
+        <div className="w-full border border-zinc-400 lg:border-zinc-800 rounded-md  h-96 overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
           {categories.length > 0 ? (
             categories.map((category) => (
               <div
@@ -78,12 +37,9 @@ const Categories = () => {
                 key={category._id}
               >
                 <div className="w-36 text-zinc-800">{category.name}</div>
-                <div className="ms-auto me-2 font-semibold">
-                  {getTotalExpensesForCategory(category, transactions)}
-                </div>
                 <div
                   style={{ backgroundColor: category.hexColor }}
-                  className="h-5 w-5 rounded-md"
+                  className="h-5 w-5 rounded-md ms-auto"
                 ></div>
               </div>
             ))
