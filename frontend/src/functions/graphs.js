@@ -94,10 +94,11 @@ export const getDailyExpensesAndIncomes = (transactions, period) => {
 
   // aggregate expenses and incomes by day
   const dailyAggregates = {};
+  let maxTotal = 0;
 
   filteredTransactions.forEach((transaction) => {
     const transactionDate = parseISO(transaction.date);
-    const formattedDate = format(transactionDate, "dd-MM-yyyy");
+    const formattedDate = format(transactionDate, "dd MMM yyyy");
 
     if (!dailyAggregates[formattedDate]) {
       dailyAggregates[formattedDate] = {
@@ -113,14 +114,28 @@ export const getDailyExpensesAndIncomes = (transactions, period) => {
     } else if (transaction.type === "income") {
       dailyAggregates[formattedDate].totalIncomes += transaction.amount;
     }
+
+    const dayMaxTotal = Math.max(
+      dailyAggregates[formattedDate].totalExpenses.toFixed(2),
+      dailyAggregates[formattedDate].totalIncomes.toFixed(2)
+    );
+    if (dayMaxTotal > maxTotal) {
+      //update
+      maxTotal = dayMaxTotal;
+    }
   });
 
   // converting dailyAggregates object to an array
-  return Object.values(dailyAggregates)
+  const dailyData = Object.values(dailyAggregates)
     .map((day) => ({
       ...day,
       totalExpenses: day.totalExpenses.toFixed(2),
       totalIncomes: day.totalIncomes.toFixed(2),
     }))
     .sort((a, b) => new Date(a.date) - new Date(b.date)); // sorting by date
+
+  return {
+    dailyData,
+    maxTotal,
+  };
 };

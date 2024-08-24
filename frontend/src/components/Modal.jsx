@@ -4,6 +4,7 @@ import UpdateTransaction from "../modals/UpdateTransaction";
 import CreateCategory from "../modals/CreateCategory";
 import UpdateCategory from "../modals/UpdateCategory";
 import useContentStore from "../store/useContentStore";
+import FilterModal from "../modals/FilterModal";
 
 const Modal = () => {
   const { setShowModal, modalContent } = useContentStore();
@@ -18,9 +19,11 @@ const Modal = () => {
     case 3:
       renderedContent = <CreateCategory />;
       break;
-
     case 4:
       renderedContent = <UpdateCategory />;
+      break;
+    case 5:
+      renderedContent = <FilterModal />;
       break;
     default:
       renderedContent = <div>Default content</div>;
@@ -28,7 +31,7 @@ const Modal = () => {
 
   return (
     <div
-      className="fixed top-0 left-0 h-full w-full backdrop-blur-sm bg-white/10 overflow-hidden"
+      className="fixed z-30 top-0 left-0 h-full w-full bg-black/60 overflow-hidden"
       onClick={() => setShowModal()}
     >
       <div

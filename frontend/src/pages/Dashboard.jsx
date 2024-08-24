@@ -19,13 +19,20 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   //stores
-  const { fetchData, user, loading } = useDataStore();
+  const { fetchData, error, loading } = useDataStore();
   const { content, showModal } = useContentStore();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetchData(token);
+      const tryFetch = async () => {
+        await fetchData(token);
+        if (error) {
+          console.error("error in fetch:", error);
+          navigate("/");
+        }
+      };
+      tryFetch();
     } else {
       navigate("/");
     }

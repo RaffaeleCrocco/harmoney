@@ -42,6 +42,20 @@ const CategoryGraph = () => {
     setMaxExpenses(functionData.maxExpense);
   }, [period, filters]);
 
+  const customTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-2 rounded-sm border text-sm pe-5">
+          <p className="font-semibold mb-1">{label}</p>
+          <div>
+            Uscite: <span>&euro;{payload[0].value}</span>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div
       className={
@@ -87,15 +101,23 @@ const CategoryGraph = () => {
       <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis
+            dataKey="name"
+            style={{
+              fontSize: "10px",
+            }}
+          />
           <YAxis
             dataKey="amount"
             width={30}
+            style={{
+              fontSize: "10px",
+            }}
             domain={([dataMin, dataMax]) => {
               return [0, maxExpenses];
             }}
           />
-          <Tooltip />
+          <Tooltip content={customTooltip} />
           <Bar
             dataKey="amount"
             name="Totale spesa"

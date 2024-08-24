@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import TransactionsTable from "../components/TransactionsTable";
 import useFiltersStore from "../store/useFiltersStore";
+import useContentStore from "../store/useContentStore";
 
 const Expenses = () => {
   //store
   const { filters, setFilters } = useFiltersStore();
+  const { setModalContent, setShowModal } = useContentStore();
 
   useEffect(() => {
-    console.log("eccomi");
     setFilters({ type: "expense" });
-    console.log("eccomi2");
   }, [setFilters]);
 
   return (
@@ -39,6 +39,15 @@ const Expenses = () => {
             <option value="categorized">Categorizzate</option>
             <option value="uncategorized">Non categorizzate</option>
           </select>
+        </div>
+        <div
+          onClick={() => {
+            setShowModal(true);
+            setModalContent(1);
+          }}
+          className="text-sm cursor-pointer text-center bg-zinc-800 text-white rounded-md py-[5.2px] px-4"
+        >
+          Crea nuova
         </div>
       </div>
       <div className="flex m-8 gap-8">

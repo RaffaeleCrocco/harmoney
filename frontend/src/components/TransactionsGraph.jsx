@@ -22,6 +22,8 @@ const TransactionsGraph = () => {
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("thisMonth");
   const [fullscreen, setFullscreen] = useState(false);
+  // to make recharts work as intended
+  const [maxExpenses, setMaxExpenses] = useState(0);
 
   useEffect(() => {
     // Apply filters and sort the transactions
@@ -29,8 +31,37 @@ const TransactionsGraph = () => {
       applyFilters(transaction, filters)
     );
 
-    setData(getDailyExpensesAndIncomes(filteredTransactions, period));
+    const functionData = getDailyExpensesAndIncomes(
+      filteredTransactions,
+      period
+    );
+
+    setData(functionData.dailyData);
+    setMaxExpenses(functionData.maxTotal);
   }, [period, filters]);
+
+  const customTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-2 rounded-sm border text-sm pe-5">
+          <p className="font-semibold mb-1">{label}</p>
+          <div>
+            Uscite:{" "}
+            <span style={{ color: payload[0].fill }}>
+              &euro;{payload[0].value}
+            </span>
+          </div>
+          <div>
+            Entrate:{" "}
+            <span style={{ color: payload[1].fill }}>
+              &euro;{payload[1].value}
+            </span>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div
@@ -77,17 +108,31 @@ const TransactionsGraph = () => {
       <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <XAxis dataKey="formattedDate" />
+          <Tooltip content={customTooltip} />
+          <YAxis
+            width={40}
+            style={{
+              fontSize: "10px",
+            }}
+            domain={([dataMin, dataMax]) => {
+              return [0, maxExpenses];
+            }}
+          />
+          <XAxis
+            dataKey="formattedDate"
+            style={{
+              fontSize: "10px",
+            }}
+          />
           <Bar
             dataKey="totalExpenses"
-            name="Totale spesa"
+            name="Totale spese nel giorno"
             activeBar={<Rectangle fill="#71717A" />}
             fill="#71717A"
           ></Bar>
           <Bar
             dataKey="totalIncomes"
-            name="Totale spesa"
+            name="Totale entrate nel giorno"
             activeBar={<Rectangle fill="#22C55E" />}
             fill="#22C55E"
           ></Bar>

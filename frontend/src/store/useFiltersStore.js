@@ -5,6 +5,7 @@ const useFiltersStore = create((set) => ({
     categories: "all",
     type: "all",
     period: "this_month",
+    selectedCategories: [],
   },
   setFilters: (newFilters) =>
     set((state) => ({

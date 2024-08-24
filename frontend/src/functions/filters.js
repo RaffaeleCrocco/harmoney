@@ -9,9 +9,9 @@ import {
 } from "date-fns";
 
 export const applyFilters = (transaction, filters) => {
-  const { categories, type, period } = filters;
+  const { categories, type, period, selectedCategories } = filters;
 
-  // Check categories filter
+  // check categories filter
   const isCategorizedFilterPassed =
     categories === "all" ||
     (categories === "categorized" &&
@@ -20,10 +20,10 @@ export const applyFilters = (transaction, filters) => {
     (categories === "uncategorized" &&
       (!transaction.categoryIds || transaction.categoryIds.length === 0));
 
-  // Check type filter
+  // check type filter
   const typeFilterPassed = type === "all" || transaction.type === type;
 
-  // Check period filter
+  // check period filter
   const transactionDate = parseISO(transaction.date); // Assuming the transaction date is an ISO string
   let isPeriodFilterPassed = true;
   const today = new Date();
@@ -68,6 +68,18 @@ export const applyFilters = (transaction, filters) => {
       break;
   }
 
+  // check category filter
+  const isCategoryFilterPassed =
+    selectedCategories.length == 0 || //if nothing is selected everything pass
+    selectedCategories.some((categoryId) =>
+      transaction.categoryIds.includes(categoryId)
+    );
+
   // Apply all filters
-  return isCategorizedFilterPassed && typeFilterPassed && isPeriodFilterPassed;
+  return (
+    isCategorizedFilterPassed &&
+    typeFilterPassed &&
+    isPeriodFilterPassed &&
+    isCategoryFilterPassed
+  );
 };
