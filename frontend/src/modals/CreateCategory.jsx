@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import useContentStore from "../store/useContentStore";
+import { HandCoins } from "lucide-react";
 
 const CreateCategory = () => {
   const { setShowModal } = useContentStore();
@@ -41,7 +42,10 @@ const CreateCategory = () => {
 
   return (
     <div className="w-full p-4 flex flex-col space-y-4">
-      {/* <span className="text-xl font-medium">Nuova transazione</span> */}
+      <span className="text-xl font-semibold flex gap-3 items-center">
+        Nuova categoria
+        <HandCoins />
+      </span>
       {loading ? (
         <Spinner />
       ) : (
@@ -49,6 +53,7 @@ const CreateCategory = () => {
           {/* Selezione del nome per la categoria */}
           <div className="flex gap-2">
             <input
+              autoFocus
               onChange={(e) => setName(e.target.value)}
               type="text"
               className="inline-flex w-full items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"

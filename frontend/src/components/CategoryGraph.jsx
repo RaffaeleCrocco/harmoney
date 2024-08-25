@@ -14,6 +14,7 @@ import useDataStore from "../store/useDataStore";
 import { getTotalExpensesForCategories } from "../functions/graphs";
 import useFiltersStore from "../store/useFiltersStore";
 import { applyFilters } from "../functions/filters";
+import { Maximize2, Minimize2 } from "lucide-react";
 
 const CategoryGraph = () => {
   //store
@@ -60,19 +61,17 @@ const CategoryGraph = () => {
     <div
       className={
         fullscreen
-          ? "fixed top-0 left-0 z-50 w-full h-full bg-white p-10"
+          ? "fixed top-0 left-0 z-50 w-full h-full bg-white p-2 lg:p-10"
           : `w-full h-96 p-1 lg:p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden mb-8`
       }
     >
       <div className="flex mb-5 text-xs">
-        <button
+        <div
           onClick={() => setFullscreen(!fullscreen)}
-          className={`me-auto px-4 py-1 border rounded-md ${
-            fullscreen ? "bg-zinc-800 text-white" : ""
-          }`}
+          className="me-auto px-4 py-1 border rounded-md cursor-pointer"
         >
-          Fullscreen
-        </button>
+          {fullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+        </div>
         <button
           onClick={() => setPeriod("thisMonth")}
           className={`px-4 py-1 ${

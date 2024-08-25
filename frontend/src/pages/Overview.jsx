@@ -21,7 +21,7 @@ const Overview = () => {
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
         <div className="me-auto">Overview</div>
         <SlidersHorizontal
-          className="cursor-pointer mx-2 text-gray-400"
+          className="hidden lg:block cursor-pointer mx-2 text-gray-400"
           size={16}
           onClick={() => {
             setModalContent(5);

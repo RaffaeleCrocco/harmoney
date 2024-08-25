@@ -6,6 +6,7 @@ import { BASEURL } from "../config";
 import Select from "react-select";
 import useDataStore from "../store/useDataStore";
 import useContentStore from "../store/useContentStore";
+import { ReceiptText } from "lucide-react";
 
 const CreateTransaction = () => {
   const { setShowModal } = useContentStore();
@@ -82,7 +83,10 @@ const CreateTransaction = () => {
 
   return (
     <div className="p-4 flex flex-col space-y-4">
-      {/* <span className="text-xl font-medium">Nuova transazione</span> */}
+      <span className="text-xl font-semibold flex gap-3 items-center">
+        Nuova transazione
+        <ReceiptText />
+      </span>
       {loading ? (
         <Spinner />
       ) : (
@@ -92,18 +96,19 @@ const CreateTransaction = () => {
             onChange={(e) => setTitle(e.target.value)}
             type="text"
             className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
-            placeholder="Titolo della transazione"
+            placeholder="Spesa settimanale"
           />
           {/* Importo della transazione */}
           <input
+            autoFocus
             onChange={(e) => setAmount(e.target.value)}
             type="number"
             className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
-            placeholder="10$"
+            placeholder="12,50 €"
           />
           {/* Selezione del tipo di transazione */}
           <ul className="flex flex-col sm:flex-row">
-            <li className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
+            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
               <div className="relative flex items-start w-full">
                 <div className="flex items-center h-5">
                   <input
@@ -113,18 +118,18 @@ const CreateTransaction = () => {
                     id="transactionType-1"
                     name="transactionType"
                     type="radio"
-                    className="border-gray-200 rounded-full disabled:opacity-50 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                    className="border-gray-200 rounded-full"
                   />
                 </div>
                 <label
                   htmlFor="transactionType-1"
-                  className="ms-3 block w-full text-sm text-gray-600 dark:text-neutral-500"
+                  className="ms-3 block w-full text-sm text-gray-600"
                 >
                   Spesa
                 </label>
               </div>
             </li>
-            <li className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
+            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
               <div className="relative flex items-start w-full">
                 <div className="flex items-center h-5">
                   <input
@@ -133,18 +138,18 @@ const CreateTransaction = () => {
                     id="transactionType-2"
                     name="transactionType"
                     type="radio"
-                    className="border-gray-200 rounded-full disabled:opacity-50 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                    className="border-gray-200 rounded-full "
                   />
                 </div>
                 <label
                   htmlFor="transactionType-2"
-                  className="ms-3 block w-full text-sm text-gray-600 dark:text-neutral-500"
+                  className="ms-3 block w-full text-sm text-gray-600"
                 >
                   Entrata
                 </label>
               </div>
             </li>
-            <li className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
+            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
               <div className="relative flex items-start w-full">
                 <div className="flex items-center h-5">
                   <input
@@ -153,12 +158,12 @@ const CreateTransaction = () => {
                     id="transactionType-3"
                     name="transactionType"
                     type="radio"
-                    className="border-gray-200 rounded-full disabled:opacity-50 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                    className="border-gray-200 rounded-full "
                   />
                 </div>
                 <label
                   htmlFor="transactionType-3"
-                  className="ms-3 block w-full text-sm text-gray-600 dark:text-neutral-500"
+                  className="ms-3 block w-full text-sm text-gray-600"
                 >
                   Prelievo
                 </label>
@@ -183,6 +188,7 @@ const CreateTransaction = () => {
                   setDate("");
                 }
               }}
+              value={date ? date : undefined}
               type="datetime-local"
               className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 rounded-md text-sm "
             />
