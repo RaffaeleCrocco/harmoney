@@ -17,7 +17,7 @@ const Navigation = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center p-2 px-6">
+      <div className="flex justify-between items-center py-3 px-6">
         <div className="ms-3 flex flex-col justify-start">
           <div>
             <img className="h-8" src={harmoneylogo} />

@@ -55,7 +55,7 @@ const Dashboard = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="h-screen overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+    <div className="select-none h-screen overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
       <Navigation />
       <div>{renderedContent}</div>
       {showModal ? <Modal /> : ""}
