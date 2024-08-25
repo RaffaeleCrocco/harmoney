@@ -60,7 +60,8 @@ const TransactionsTable = () => {
                 {handleCategoriesTag(transaction.categoryIds, categories).map(
                   (category, item) => (
                     <div
-                      className="bg-zinc-100 px-2.5 rounded-sm text-xs text-zinc-600"
+                      style={{ backgroundColor: category.hexColor + "22" }}
+                      className="px-2.5 rounded-sm text-xs text-zinc-800"
                       key={item}
                     >
                       {category.name}
