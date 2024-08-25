@@ -8,6 +8,8 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  LineChart,
+  Line,
 } from "recharts";
 import useDataStore from "../store/useDataStore";
 import { getDailyExpensesAndIncomes } from "../functions/graphs";
@@ -48,14 +50,14 @@ const TransactionsGraph = () => {
           <p className="font-semibold mb-1">{label}</p>
           <div>
             Uscite:{" "}
-            <span style={{ color: payload[0].fill }}>
-              &euro;{payload[0].value}
+            <span style={{ color: payload[0].stroke }}>
+              &euro;{payload[0].payload.totalExpenses}
             </span>
           </div>
           <div>
             Entrate:{" "}
-            <span style={{ color: payload[1].fill }}>
-              &euro;{payload[1].value}
+            <span style={{ color: payload[1].stroke }}>
+              &euro;{payload[1].payload.totalIncomes}
             </span>
           </div>
         </div>
@@ -105,9 +107,12 @@ const TransactionsGraph = () => {
         </button>
       </div>
       <ResponsiveContainer width="100%" height="90%">
-        <BarChart width={500} height={300} data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip content={customTooltip} />
+        <LineChart width={500} height={300} data={data}>
+          <CartesianGrid strokeDasharray="2 2" />
+          <Tooltip
+            content={customTooltip}
+            cursor={{ stroke: "black", strokeWidth: 2 }}
+          />
           <YAxis
             width={40}
             style={{
@@ -123,19 +128,21 @@ const TransactionsGraph = () => {
               fontSize: "10px",
             }}
           />
-          <Bar
+          <Line
+            type="monotone"
             dataKey="totalExpenses"
             name="Totale spese nel giorno"
-            activeBar={<Rectangle fill="#71717A" />}
-            fill="#71717A"
-          ></Bar>
-          <Bar
+            stroke="#71717A"
+            strokeWidth={2}
+          ></Line>
+          <Line
+            type="monotone"
             dataKey="totalIncomes"
             name="Totale entrate nel giorno"
-            activeBar={<Rectangle fill="#22C55E" />}
-            fill="#22C55E"
-          ></Bar>
-        </BarChart>
+            stroke="#22C55E"
+            strokeWidth={2}
+          ></Line>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
