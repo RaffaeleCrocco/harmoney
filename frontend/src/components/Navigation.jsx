@@ -44,7 +44,7 @@ const Navigation = () => {
           />
         </div>
       </div>
-      <div className="relative flex mt-3 px-6 gap-10 text-sm border-b border-zinc-200">
+      <div className="relative flex mt-3 px-6 gap-10 text-sm border-b border-zinc-200 overflow-x-auto">
         <div
           onClick={() => {
             setContent(1);
@@ -94,7 +94,7 @@ const Navigation = () => {
           onClick={() => {
             setContent(4);
           }}
-          className={`ms-auto group cursor-pointer font-normal text-zinc-500 hidden lg:flex flex-col justify-center hover:text-zinc-900 ${
+          className={`ms-auto group cursor-pointer font-normal text-zinc-500 flex flex-col justify-center hover:text-zinc-900 ${
             content == 4 ? "text-zinc-900" : ""
           }`}
         >
