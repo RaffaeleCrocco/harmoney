@@ -67,7 +67,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Protected route example
-router.get("/protected", (req, res) => {
+router.get("/protected", async (req, res) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
@@ -75,7 +75,23 @@ router.get("/protected", (req, res) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    res.status(200).json({ message: "Protected content", user: decoded });
+    const user = await User.findById(decoded.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return the user details, including settings
+    res.status(200).json({
+      message: "Protected content",
+      user: {
+        username: user.username,
+        userId: user._id,
+        settings: user.settings,
+        iat: decoded.iat,
+        exp: decoded.exp,
+      },
+    });
   } catch (err) {
     res.status(401).json({ message: "Invalid token" });
   }

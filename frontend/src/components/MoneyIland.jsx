@@ -11,9 +11,9 @@ import { Calendar, Eye, EyeOff, Wallet } from "lucide-react";
 import useDataStore from "../store/useDataStore";
 
 const MoneyIland = () => {
-  const { transactions } = useDataStore();
+  const { transactions, user } = useDataStore();
   const [startingAmount, setStartingAmount] = useState(0); // Set default starting amount
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
   const [monthlyTotalAmount, setMonthlyTotalAmount] = useState(0);
 
@@ -49,7 +49,8 @@ const MoneyIland = () => {
   useEffect(() => {
     setTotalAmount(calculateTotal(transactions, startingAmount));
     setMonthlyTotalAmount(calculateMonthlyTotal(transactions));
-  }, [transactions, startingAmount]);
+    setHidden(user?.settings.isPrivacyFilterOn);
+  }, [transactions, startingAmount, user]);
 
   return (
     <div className="w-full lg:w-64 lg:h-96 flex flex-col gap-6">

@@ -69,4 +69,23 @@ router.delete("/delete-user/:id", async (req, res) => {
   }
 });
 
+router.put("/privacy", async (req, res) => {
+  const { isPrivacyFilterOn } = req.body;
+  const id = req.user.userId; // Extract userId from the token
+
+  try {
+    // Update the user settings fields
+    const updatedUserSettings = await User.findByIdAndUpdate(
+      id,
+      { settings: { isPrivacyFilterOn } },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json(updatedUserSettings);
+  } catch (error) {
+    console.log("Error:", error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 export default router;
