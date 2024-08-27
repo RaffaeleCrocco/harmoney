@@ -5,6 +5,7 @@ import {
   startOfYear,
   endOfYear,
   format,
+  endOfToday,
 } from "date-fns";
 
 export const getTotalExpensesForCategories = (
@@ -24,7 +25,7 @@ export const getTotalExpensesForCategories = (
     endingDate = endOfYear(now);
   } else if (period === "allTime") {
     startingDate = new Date(0);
-    endingDate = now;
+    endingDate = endOfToday(now);
   }
 
   const expensesData = categories.map((category) => {

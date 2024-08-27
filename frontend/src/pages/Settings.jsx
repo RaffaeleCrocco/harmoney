@@ -21,8 +21,9 @@ const Settings = () => {
         },
       })
       .then(() => {
+        localStorage.removeItem("token");
         setLoading(false);
-        navigate(0);
+        navigate("/");
       })
       .catch((error) => {
         setLoading(false);
@@ -37,7 +38,13 @@ const Settings = () => {
       </div>
       <div className="min-w-full h-[60vh] flex flex-col items-center p-8">
         <p className="text-xs">Sto lavorando a questa pagina.</p>
-        <CoinAnimation />
+        <button
+          disabled
+          onClick={() => handleDeleteUser()}
+          className="disabled:text-gray-200"
+        >
+          delete user
+        </button>
       </div>
     </div>
   );

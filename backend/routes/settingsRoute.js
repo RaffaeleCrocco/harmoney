@@ -2,6 +2,9 @@ import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config.js";
 import express from "express";
+import mongoose from "mongoose";
+import { Transaction } from "../models/transactionModel.js";
+import { Category } from "../models/categoryModel.js";
 
 const router = express.Router();
 
@@ -24,7 +27,7 @@ const authenticateToken = (req, res, next) => {
 // Middleware to check if token is valid and extract user info
 router.use(authenticateToken);
 
-router.delete("delete-user/:id", async (req, res) => {
+router.delete("/delete-user/:id", async (req, res) => {
   try {
     const { id } = req.params; //Extract userId from URL
     const { userId } = req.user; // Extract userId from the token payload
@@ -35,11 +38,30 @@ router.delete("delete-user/:id", async (req, res) => {
         .json({ message: "You dont have the permission to delete this user" });
     }
 
-    const result = await User.findByIdAndDelete(id);
+    const userObjId = new mongoose.Types.ObjectId(id);
+
+    const result = await User.findByIdAndDelete(userObjId);
+    const deleteUserTransactions = await Transaction.deleteMany({
+      userId: userObjId,
+    });
+    const deleteUserCategories = await Category.deleteMany({
+      userId: userObjId,
+    });
 
     if (!result) {
       return res.status(400).json({ message: "user not found" });
     }
+    if (!deleteUserTransactions) {
+      return res
+        .status(400)
+        .json({ message: "problem deleting transactions of the user" });
+    }
+    if (!deleteUserCategories) {
+      return res
+        .status(400)
+        .json({ message: "problem deleting categories of the user" });
+    }
+
     return res.status(200).send({ message: "user deleted successfully" });
   } catch (error) {
     console.log(error.message);
