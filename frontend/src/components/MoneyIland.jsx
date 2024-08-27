@@ -12,7 +12,6 @@ import useDataStore from "../store/useDataStore";
 
 const MoneyIland = () => {
   const { transactions, user } = useDataStore();
-  const [startingAmount, setStartingAmount] = useState(0); // Set default starting amount
   const [hidden, setHidden] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
   const [monthlyTotalAmount, setMonthlyTotalAmount] = useState(0);
@@ -47,10 +46,10 @@ const MoneyIland = () => {
   };
 
   useEffect(() => {
-    setTotalAmount(calculateTotal(transactions, startingAmount));
+    setTotalAmount(calculateTotal(transactions, user?.settings.startingAmount));
     setMonthlyTotalAmount(calculateMonthlyTotal(transactions));
     setHidden(user?.settings.isPrivacyFilterOn);
-  }, [transactions, startingAmount, user]);
+  }, [transactions, user]);
 
   return (
     <div className="w-full lg:w-64 lg:h-96 flex flex-col gap-6">

@@ -44,7 +44,7 @@ const Navigation = () => {
           />
         </div>
       </div>
-      <div className="relative flex mt-3 px-6 gap-10 text-sm border-b border-zinc-200 overflow-x-auto">
+      <div className="relative flex mt-3 px-6 gap-10 text-sm border-b border-zinc-200 overflow-x-auto overflow-y-hidden">
         <div
           onClick={() => {
             setContent(1);

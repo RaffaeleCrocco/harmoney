@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   settings: {
     isPrivacyFilterOn: { type: Boolean, default: true },
+    startingAmount: { type: Number, default: 0 },
   },
 });
 

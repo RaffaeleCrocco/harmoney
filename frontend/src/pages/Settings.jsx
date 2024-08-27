@@ -14,20 +14,22 @@ const Settings = () => {
   const { user } = useDataStore();
   //form state
   const [isPrivacyFilterOn, setIsPrivacyFilterOn] = useState(true);
+  const [startingAmount, setStartingAmount] = useState(0);
   const [deleteLabel, setDeleteLabel] = useState("");
 
   useEffect(() => {
     setIsPrivacyFilterOn(user?.settings.isPrivacyFilterOn);
-    console.log("aggioranto", user?.settings.isPrivacyFilterOn);
+    setStartingAmount(user?.settings.startingAmount);
   }, [user]);
 
   const handleUpdateSettings = () => {
     const data = {
       isPrivacyFilterOn,
+      startingAmount,
     };
     setLoading(true);
     axios
-      .put(`${BASEURL}/settings/privacy`, data, {
+      .put(`${BASEURL}/settings/update`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -82,7 +84,7 @@ const Settings = () => {
             </p>
           </div>
           <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md">
-            <label class="flex p-3 w-full text-sm ">
+            <label className="flex p-3 w-full text-sm ">
               <p className="text-xs mt-1 w-2/3">
                 Potrai comunque vedere l'importo cliccando l'icona
                 corrispondente accanto ad esso.
@@ -91,9 +93,30 @@ const Settings = () => {
                 type="checkbox"
                 checked={isPrivacyFilterOn}
                 onChange={() => setIsPrivacyFilterOn(!isPrivacyFilterOn)}
-                class="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
               />
             </label>
+          </div>
+        </div>
+        <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
+          <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
+            <p className="font-semibold">Saldo iniziale</p>
+            <p className="text-xs mt-1">
+              Il totale dei soldi che possiedi quando inizi ad usare l'app,
+              inizieremo i conti da qui.
+            </p>
+          </div>
+          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md p-4 ">
+            <p className="text-xs">
+              Inserisci la somma (in euro) dei soldi che possiedi, in contanti e
+              su carte.
+            </p>
+            <input
+              value={startingAmount}
+              onChange={(e) => setStartingAmount(e.target.value)}
+              type="number"
+              className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+            />
           </div>
         </div>
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
@@ -111,7 +134,6 @@ const Settings = () => {
                 inserisci il tuo username e premi Elimina.
               </p>
               <input
-                value={deleteLabel}
                 onChange={(e) => setDeleteLabel(e.target.value)}
                 type="text"
                 className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
