@@ -34,11 +34,13 @@ const Modal = () => {
       className="fixed z-30 top-0 left-0 h-full w-full bg-black/60 overflow-hidden"
       onClick={() => setShowModal()}
     >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="w-80 lg:w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 lg:-translate-y-1/2 z-50 bg-white rounded-md p-3"
-      >
-        {renderedContent}
+      <div className="w-full lg:w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 lg:-translate-y-1/2 z-50 p-5">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="bg-white rounded-md p-3 lg:p-1"
+        >
+          {renderedContent}
+        </div>
       </div>
     </div>
   );

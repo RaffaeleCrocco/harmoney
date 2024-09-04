@@ -7,14 +7,18 @@ import {
   eachDayOfInterval,
   endOfToday,
 } from "date-fns";
-import { Calendar, Eye, EyeOff, Wallet } from "lucide-react";
+import { Calendar, Eye, EyeOff, Info, Wallet } from "lucide-react";
 import useDataStore from "../store/useDataStore";
 
 const MoneyIland = () => {
+  //store
   const { transactions, user } = useDataStore();
+
+  //component state
   const [hidden, setHidden] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
   const [monthlyTotalAmount, setMonthlyTotalAmount] = useState(0);
+  const [infoTooltipVisible, setInfoTooltipVisible] = useState(false);
 
   // Function to calculate total amount
   const calculateTotal = (transactions, startingAmount) => {
@@ -70,14 +74,32 @@ const MoneyIland = () => {
         </div>
       </div>
       <div className="hidden lg:flex flex-col w-full h-full p-6 border border-zinc-800 rounded-md overflow-hidden">
-        <div className="w-full flex gap-1 font-semibold items-center">
+        <div className="w-full flex gap-2 font-semibold items-center">
           <span className="text-sm">€</span>
           <div
-            className={`w-full text-3xl leading-none me-auto ${
+            className={`w-full text-3xl leading-none ${
               hidden ? "blur-md bg-white/30" : ""
             }`}
           >
-            {totalAmount.toFixed(2)}
+            {monthlyTotalAmount.toFixed(2)}
+          </div>
+          <div
+            className="relative flex items-center cursor-pointer"
+            onMouseEnter={() => setInfoTooltipVisible(true)}
+            onMouseLeave={() => setInfoTooltipVisible(false)}
+          >
+            <Info size={18} className="text-gray-300" />
+            <div
+              className={` bg-white border right-6 top-0 p-2 text-xs rounded-md min-w-32 ${
+                infoTooltipVisible ? "absolute" : "hidden"
+              }`}
+            >
+              <p>Questa cifra mostra l'andamento del mese. </p>
+              <p className="mt-2 font-normal">
+                Se negativa significa che al momento le uscite di questo mese
+                superano le entrate.
+              </p>
+            </div>
           </div>
         </div>
         <p className="text-xs mt-4">Sto lavorando alla sezione.</p>

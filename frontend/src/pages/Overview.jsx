@@ -21,14 +21,16 @@ const Overview = () => {
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
         <div className="me-auto">Overview</div>
         <SlidersHorizontal
-          className="hidden lg:block cursor-pointer mx-2 text-gray-400"
+          className="cursor-pointer mx-2 text-gray-400"
           size={16}
           onClick={() => {
             setModalContent(5);
             setShowModal(true);
           }}
         />
-        <MultiSelect />
+        <div className="w-52 h-8 py-[0.75px] hidden lg:block">
+          <MultiSelect />
+        </div>
         <div className="hidden lg:block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"

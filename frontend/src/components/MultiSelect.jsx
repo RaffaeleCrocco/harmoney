@@ -41,11 +41,11 @@ const MultiSelect = () => {
 
   return (
     <div
-      className="hidden lg:block relative w-52 text-sm select-none"
+      className="relative w-full h-full text-sm select-none"
       ref={dropdownRef}
     >
       <div
-        className="w-full px-4 py-[4.5px] rounded-md border border-zinc-800 flex items-center cursor-pointer"
+        className="w-full h-full px-4 py-[4.5px] rounded-md border border-zinc-800 flex items-center cursor-pointer"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         {filters.selectedCategories?.length} item selezionati
