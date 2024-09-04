@@ -52,7 +52,7 @@ const Transactions = () => {
           Crea nuova
         </div>
       </div>
-      <div className="flex m-8 gap-8">
+      <div className="flex p-5 lg:p-8  gap-8">
         <TransactionsTable />
       </div>
     </div>
