@@ -81,13 +81,13 @@ router.get("/protected", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Return the user details, including settings
     res.status(200).json({
       message: "Protected content",
       user: {
         username: user.username,
         userId: user._id,
         settings: user.settings,
+        filters: user.filters,
         iat: decoded.iat,
         exp: decoded.exp,
       },
