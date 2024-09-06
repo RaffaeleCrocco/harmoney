@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import CoinAnimation from "../components/CoinAnimation";
 import useDataStore from "../store/useDataStore";
+import Spinner from "../components/Spinner";
 
 const Settings = () => {
   const token = localStorage.getItem("token");
@@ -70,7 +71,7 @@ const Settings = () => {
       });
   };
 
-  if (loading) return <p>loading</p>;
+  if (loading) return <Spinner />;
 
   return (
     <div className="mb-10">

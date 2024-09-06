@@ -70,10 +70,14 @@ const TransactionsTable = () => {
                     <div
                       style={
                         isSimpleModeOn
-                          ? { backgroundColor: "#efefef" }
+                          ? {}
                           : { backgroundColor: category.hexColor + "22" }
                       }
-                      className="px-2.5 rounded-sm text-xs text-zinc-800"
+                      className={
+                        isSimpleModeOn
+                          ? "text-xs text-zinc-400"
+                          : "px-2.5 rounded-sm text-xs text-zinc-800"
+                      }
                       key={item}
                     >
                       {category.name}

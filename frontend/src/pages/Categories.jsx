@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FolderPlus } from "lucide-react";
 import useDataStore from "../store/useDataStore";
 import useContentStore from "../store/useContentStore";
-import CategoryGraph from "../components/CategoryGraph";
 
 const Categories = () => {
-  const { categories, setCategoryIdToUpdate } = useDataStore();
+  const { categories, setCategoryIdToUpdate, user } = useDataStore();
   const { setShowModal, setModalContent } = useContentStore();
+
+  //component state
+  const [isSimpleModeOn, setIsSimpleModeOn] = useState(false);
+
+  useEffect(() => {
+    setIsSimpleModeOn(user?.settings.isSimpleModeOn);
+  }, [user]);
 
   return (
     <div>
@@ -22,9 +28,8 @@ const Categories = () => {
           Crea nuova
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row p-5 lg:p-8 gap-5 lg:gap-8">
-        <CategoryGraph />
-        <div className="w-full border border-zinc-400 lg:border-zinc-800 rounded-md h-96 overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+      <div className="p-5 lg:p-8">
+        <div className="w-full border border-zinc-400 lg:border-zinc-800 rounded-md">
           {categories.length > 0 ? (
             categories.map((category) => (
               <div
@@ -33,13 +38,17 @@ const Categories = () => {
                   setModalContent(4);
                   setCategoryIdToUpdate(category._id);
                 }}
-                className="w-full cursor-pointer py-2 px-2 lg:py-1.5 border-b last:border-none border-gray-200 rounded-sm flex items-center hover:bg-gray-100 text-sm"
+                className="w-full cursor-pointer py-2 lg:py-0.5 px-2 border-b last:border-none border-gray-200 rounded-sm flex items-center hover:bg-gray-100 text-sm"
                 key={category._id}
               >
                 <div className="w-36 text-zinc-800">{category.name}</div>
-                <div className="w-3/5 px-2 text-zinc-400 overflow-hidden truncate text-xs">
-                  {category.description}
-                </div>
+                {isSimpleModeOn ? (
+                  ""
+                ) : (
+                  <div className="w-3/5 px-2 text-zinc-400 overflow-hidden truncate text-xs">
+                    {category.description}
+                  </div>
+                )}
                 <div
                   style={{ backgroundColor: category.hexColor }}
                   className="h-5 w-5 rounded-md ms-auto"
