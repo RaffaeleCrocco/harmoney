@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
   settings: {
     isPrivacyFilterOn: { type: Boolean, default: true },
     startingAmount: { type: Number, default: 0 },
+    isSimpleModeOn: { type: Boolean, default: false },
   },
   filters: {
     categories: { type: String, default: "all" },

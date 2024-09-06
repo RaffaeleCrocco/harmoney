@@ -14,16 +14,19 @@ const Settings = () => {
   const { user } = useDataStore();
   //form state
   const [isPrivacyFilterOn, setIsPrivacyFilterOn] = useState(true);
+  const [isSimpleModeOn, setIsSimpleModeOn] = useState(false);
   const [startingAmount, setStartingAmount] = useState(0);
   const [deleteLabel, setDeleteLabel] = useState("");
 
   useEffect(() => {
     setIsPrivacyFilterOn(user?.settings.isPrivacyFilterOn);
     setStartingAmount(user?.settings.startingAmount);
+    setIsSimpleModeOn(user?.settings.isSimpleModeOn);
   }, [user]);
 
   const handleUpdateSettings = () => {
     const data = {
+      isSimpleModeOn,
       isPrivacyFilterOn,
       startingAmount,
     };
@@ -70,7 +73,7 @@ const Settings = () => {
   if (loading) return <p>loading</p>;
 
   return (
-    <div>
+    <div className="mb-10">
       <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
         <div className="me-auto">Impostazioni</div>
       </div>
@@ -93,6 +96,29 @@ const Settings = () => {
                 type="checkbox"
                 checked={isPrivacyFilterOn}
                 onChange={() => setIsPrivacyFilterOn(!isPrivacyFilterOn)}
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
+              />
+            </label>
+          </div>
+        </div>
+        <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
+          <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
+            <p className="font-semibold">Dashboard semplificata</p>
+            <p className="text-xs mt-1">
+              Quando attiva l'interfaccia utente apparirà più organica e
+              semplificata.
+            </p>
+          </div>
+          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md">
+            <label className="flex p-3 w-full text-sm ">
+              <p className="text-xs mt-1 w-2/3">
+                Tenderemo a mantenere visibili gli elementi chiave della
+                piattaforma.
+              </p>
+              <input
+                type="checkbox"
+                checked={isSimpleModeOn}
+                onChange={() => setIsSimpleModeOn(!isSimpleModeOn)}
                 className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
               />
             </label>

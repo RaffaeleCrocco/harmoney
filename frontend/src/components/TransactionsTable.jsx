@@ -1,5 +1,5 @@
 import { FilePlus, MoveRight, TrendingDown, TrendingUp } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useDataStore from "../store/useDataStore";
 import useContentStore from "../store/useContentStore";
 import { applyFilters } from "../functions/filters";
@@ -8,9 +8,17 @@ import useFiltersStore from "../store/useFiltersStore";
 
 const TransactionsTable = () => {
   //store
-  const { transactions, categories, setTransactionIdToUpdate } = useDataStore();
+  const { transactions, categories, setTransactionIdToUpdate, user } =
+    useDataStore();
   const { filters } = useFiltersStore();
   const { setModalContent, setShowModal } = useContentStore();
+
+  //component state
+  const [isSimpleModeOn, setIsSimpleModeOn] = useState(false);
+
+  useEffect(() => {
+    setIsSimpleModeOn(user?.settings.isSimpleModeOn);
+  }, [user]);
 
   // Apply filters and sort the transactions
   const filteredTransactions = transactions
@@ -60,7 +68,11 @@ const TransactionsTable = () => {
                 {handleCategoriesTag(transaction.categoryIds, categories).map(
                   (category, item) => (
                     <div
-                      style={{ backgroundColor: category.hexColor + "22" }}
+                      style={
+                        isSimpleModeOn
+                          ? { backgroundColor: "#efefef" }
+                          : { backgroundColor: category.hexColor + "22" }
+                      }
                       className="px-2.5 rounded-sm text-xs text-zinc-800"
                       key={item}
                     >
@@ -81,7 +93,9 @@ const TransactionsTable = () => {
                 }`}
               >
                 &#8364; {transaction.amount.toFixed(2)}
-                {transaction.type === "income" ? (
+                {isSimpleModeOn ? (
+                  ""
+                ) : transaction.type === "income" ? (
                   <TrendingUp />
                 ) : transaction.type === "expense" ? (
                   <TrendingDown />
