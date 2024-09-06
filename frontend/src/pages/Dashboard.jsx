@@ -9,6 +9,7 @@ import Settings from "./Settings";
 import useDataStore from "../store/useDataStore";
 import useContentStore from "../store/useContentStore";
 import Transactions from "./Transactions";
+import useFiltersStore from "../store/useFiltersStore";
 
 const Dashboard = () => {
   //navigation to go back home if token not valid
@@ -17,22 +18,34 @@ const Dashboard = () => {
   //stores
   const { fetchData, error, loading } = useDataStore();
   const { content, showModal } = useContentStore();
+  const { fetchFilters } = useFiltersStore();
 
+  //use effect da testare
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      const tryFetch = async () => {
+
+    const tryFetch = async () => {
+      if (!token) {
+        navigate("/");
+        return;
+      }
+
+      try {
         await fetchData(token);
+        await fetchFilters(token);
+
         if (error) {
-          console.error("error in fetch:", error);
+          console.error("error in fetching:", error);
           navigate("/");
         }
-      };
-      tryFetch();
-    } else {
-      navigate("/");
-    }
-  }, [fetchData, navigate]);
+      } catch (err) {
+        console.error("error:", err);
+        navigate("/");
+      }
+    };
+
+    tryFetch();
+  }, [fetchData, fetchFilters, error, navigate]);
 
   let renderedContent;
   switch (content) {

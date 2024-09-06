@@ -35,7 +35,6 @@ const useDataStore = create((set) => ({
           username: authResponse.data.user.username,
           userId: authResponse.data.user.userId,
           settings: authResponse.data.user.settings,
-          filters: authResponse.data.user.filters,
         },
         transactions: transactionResponse.data.data,
         categories: categoryResponse.data.data,

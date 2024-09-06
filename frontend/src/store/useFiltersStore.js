@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import axios from "axios";
+import { BASEURL } from "../config";
 
 const useFiltersStore = create((set) => ({
   filters: {
@@ -7,6 +9,9 @@ const useFiltersStore = create((set) => ({
     period: "this_month",
     selectedCategories: [],
   },
+  loading: false,
+  error: null,
+
   setFilters: (newFilters) =>
     set((state) => ({
       filters: {
@@ -14,6 +19,21 @@ const useFiltersStore = create((set) => ({
         ...newFilters, // update new
       },
     })),
+
+  fetchFilters: async (token) => {
+    set({ loading: true, error: null });
+
+    axios
+      .get(`${BASEURL}/auth/protected`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        set({ filters: res.data.user.filters });
+      })
+      .catch((error) => {
+        set({ loading: false, error: error.message });
+      });
+  },
 }));
 
 export default useFiltersStore;

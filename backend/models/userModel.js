@@ -11,7 +11,10 @@ const userSchema = mongoose.Schema({
     categories: { type: String, default: "all" },
     type: { type: String, default: "all" },
     period: { type: String, default: "this_month" },
-    selectedCategories: { type: Array, default: [] },
+    selectedCategories: {
+      type: [String],
+      default: [],
+    },
   },
 });
 

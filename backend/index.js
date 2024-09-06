@@ -5,6 +5,7 @@ import authRoute from "./routes/authRoute.js";
 import transactionRoute from "./routes/transactionRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import settingsRoute from "./routes/settingsRoute.js";
+import filtersRoute from "./routes/filtersRoute.js";
 import cors from "cors";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use("/auth", authRoute);
 app.use("/transaction", transactionRoute);
 app.use("/category", categoryRoute);
 app.use("/settings", settingsRoute);
+app.use("/filters", filtersRoute);
 
 mongoose
   .connect(MONGODB_URL)
