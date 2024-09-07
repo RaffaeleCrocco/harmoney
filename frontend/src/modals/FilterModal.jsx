@@ -7,6 +7,9 @@ import { SlidersHorizontal } from "lucide-react";
 const FilterModal = () => {
   //store
   const { filters, setFilters } = useFiltersStore();
+  //token
+  const token = localStorage.getItem("token");
+
   return (
     <div className="flex flex-col p-4 w-full">
       <span className="text-xl font-semibold flex gap-3 items-center">
@@ -19,7 +22,7 @@ const FilterModal = () => {
       <div className="block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
         <select
           className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8"
-          onChange={(e) => setFilters({ type: e.target.value })}
+          onChange={(e) => setFilters({ type: e.target.value }, token)}
           value={filters.type}
         >
           <option value="all">Tutte le transazioni</option>
@@ -34,7 +37,7 @@ const FilterModal = () => {
       <div className="block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
         <select
           className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8"
-          onChange={(e) => setFilters({ categories: e.target.value })}
+          onChange={(e) => setFilters({ categories: e.target.value }, token)}
           value={filters.categories}
         >
           <option value="all">Tutte le transazioni</option>
@@ -54,7 +57,7 @@ const FilterModal = () => {
       <div className="border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
         <select
           className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8"
-          onChange={(e) => setFilters({ period: e.target.value })}
+          onChange={(e) => setFilters({ period: e.target.value }, token)}
           value={filters.period}
         >
           <option value="this_month">Questo mese</option>

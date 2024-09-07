@@ -2,9 +2,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
-import CoinAnimation from "../components/CoinAnimation";
 import useDataStore from "../store/useDataStore";
 import Spinner from "../components/Spinner";
+import useFiltersStore from "../store/useFiltersStore";
+import { SlidersHorizontal } from "lucide-react";
+import MultiSelect from "../components/MultiSelect";
 
 const Settings = () => {
   const token = localStorage.getItem("token");
@@ -13,23 +15,32 @@ const Settings = () => {
 
   //store
   const { user } = useDataStore();
+  const { filters } = useFiltersStore();
+
   //form state
   const [isPrivacyFilterOn, setIsPrivacyFilterOn] = useState(true);
   const [isSimpleModeOn, setIsSimpleModeOn] = useState(false);
+  const [isRememberFiltersOn, setIsRememberFiltersOn] = useState(false);
   const [startingAmount, setStartingAmount] = useState(0);
   const [deleteLabel, setDeleteLabel] = useState("");
+
+  //filter state
+  const [currentFilters, setCurrentFilters] = useState();
 
   useEffect(() => {
     setIsPrivacyFilterOn(user?.settings.isPrivacyFilterOn);
     setStartingAmount(user?.settings.startingAmount);
     setIsSimpleModeOn(user?.settings.isSimpleModeOn);
-  }, [user]);
+    setIsRememberFiltersOn(user?.settings.isRememberFiltersOn);
+    setCurrentFilters(filters);
+  }, [user, filters]);
 
   const handleUpdateSettings = () => {
     const data = {
       isSimpleModeOn,
       isPrivacyFilterOn,
       startingAmount,
+      isRememberFiltersOn,
     };
     setLoading(true);
     axios
@@ -129,7 +140,7 @@ const Settings = () => {
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Saldo iniziale</p>
             <p className="text-xs mt-1">
-              Il totale dei soldi che possiedi quando inizi ad usare l'app,
+              Il totale dei soldi posseduti quando inizi ad usare l'app,
               inizieremo i conti da qui.
             </p>
           </div>
@@ -144,6 +155,28 @@ const Settings = () => {
               type="number"
               className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
             />
+          </div>
+        </div>
+        <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
+          <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
+            <p className="font-semibold">Ricorda i miei filtri</p>
+            <p className="text-xs mt-1">
+              Imposta automaticamente gli ultimi filtri usati come di default.
+            </p>
+          </div>
+          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md">
+            <label className="flex p-3 w-full text-sm ">
+              <p className="text-xs mt-1 w-2/3">
+                Ci ricorderemo degli ultimi filtri che hai usato. Se 'off'
+                useremo quelli di default.
+              </p>
+              <input
+                type="checkbox"
+                checked={isRememberFiltersOn}
+                onChange={() => setIsRememberFiltersOn(!isRememberFiltersOn)}
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
+              />
+            </label>
           </div>
         </div>
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">

@@ -9,6 +9,8 @@ const MultiSelect = () => {
   //store
   const { categories } = useDataStore();
   const { setFilters, filters } = useFiltersStore();
+  //token
+  const token = localStorage.getItem("token");
 
   const handleCategorySelected = (selectedCategoryId) => {
     const isIncluded = filters.selectedCategories.includes(selectedCategoryId);
@@ -17,7 +19,7 @@ const MultiSelect = () => {
       ? filters.selectedCategories.filter((id) => id !== selectedCategoryId)
       : [...filters.selectedCategories, selectedCategoryId];
 
-    setFilters({ selectedCategories: updatedCategories });
+    setFilters({ selectedCategories: updatedCategories }, token);
   };
 
   // handle the click out of the box
@@ -54,7 +56,7 @@ const MultiSelect = () => {
           onClick={(e) => {
             e.stopPropagation();
             setIsDropdownOpen(false);
-            setFilters({ selectedCategories: [] });
+            setFilters({ selectedCategories: [] }, token);
           }}
         >
           <X size={16} strokeWidth={2} />

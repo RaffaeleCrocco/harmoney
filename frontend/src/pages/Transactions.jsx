@@ -10,9 +10,8 @@ const Transactions = () => {
   const { setModalContent, setShowModal } = useContentStore();
   const { filters, setFilters } = useFiltersStore();
 
-  useEffect(() => {
-    setFilters({ type: "all" });
-  }, []);
+  //token
+  const token = localStorage.getItem("token");
 
   return (
     <div>
@@ -32,7 +31,7 @@ const Transactions = () => {
         <div className="hidden lg:block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
           <select
             className="cursor-pointer flex items-center gap-x-2 text-sm border-none"
-            onChange={(e) => setFilters({ period: e.target.value })}
+            onChange={(e) => setFilters({ period: e.target.value }, token)}
             value={filters.period}
           >
             <option value="this_month">Questo mese</option>

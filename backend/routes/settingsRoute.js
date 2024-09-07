@@ -70,14 +70,26 @@ router.delete("/delete-user/:id", async (req, res) => {
 });
 
 router.put("/update", async (req, res) => {
-  const { isPrivacyFilterOn, startingAmount, isSimpleModeOn } = req.body;
+  const {
+    isPrivacyFilterOn,
+    startingAmount,
+    isSimpleModeOn,
+    isRememberFiltersOn,
+  } = req.body;
   const id = req.user.userId; // Extract userId from the token
 
   try {
     // Update the user settings fields
     const updatedUserSettings = await User.findByIdAndUpdate(
       id,
-      { settings: { isPrivacyFilterOn, startingAmount, isSimpleModeOn } },
+      {
+        settings: {
+          isPrivacyFilterOn,
+          startingAmount,
+          isSimpleModeOn,
+          isRememberFiltersOn,
+        },
+      },
       { new: true, runValidators: true }
     );
 
