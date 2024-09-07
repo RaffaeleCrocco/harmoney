@@ -69,7 +69,10 @@ router.delete("/:id", async (req, res) => {
     }
     return res
       .status(200)
-      .send({ message: "transaction deleted successfully" });
+      .send({
+        deletedTransactionId: id,
+        message: "transaction deleted successfully",
+      });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });

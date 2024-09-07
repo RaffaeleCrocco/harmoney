@@ -15,21 +15,26 @@ const TransactionsTable = () => {
 
   //component state
   const [isSimpleModeOn, setIsSimpleModeOn] = useState(false);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   useEffect(() => {
     setIsSimpleModeOn(user?.settings.isSimpleModeOn);
   }, [user]);
 
-  // Apply filters and sort the transactions
-  const filteredTransactions = transactions
-    .filter((transaction) => applyFilters(transaction, filters))
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  const hasTransactions = filteredTransactions.length > 0;
+  useEffect(() => {
+    if (transactions.length > 0) {
+      // if there is transactions then filter
+      setFilteredTransactions(
+        transactions
+          .filter((transaction) => applyFilters(transaction, filters))
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+      );
+    }
+  }, [transactions, filters]);
 
   return (
     <div className="w-full h-full border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
-      {hasTransactions ? (
+      {filteredTransactions.length > 0 ? (
         filteredTransactions.map((transaction) => (
           <div
             onClick={() => {

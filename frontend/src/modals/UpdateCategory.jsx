@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
-import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import useContentStore from "../store/useContentStore";
 import useDataStore from "../store/useDataStore";
 
 const UpdateCategory = () => {
+  //store
   const { setShowModal } = useContentStore();
-  const { categoryIdToUpdate } = useDataStore();
+  const { categoryIdToUpdate, deleteCategory, updateCategory } = useDataStore();
+
+  //utils
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
 
   //form state
   const [name, setName] = useState("");
@@ -33,7 +34,7 @@ const UpdateCategory = () => {
         setLoading(false);
       })
       .catch((error) => {
-        alert("Check console");
+        console.error("errore al caricamento della categoria: ", error);
         setLoading(false);
       });
   }, []);
@@ -52,13 +53,13 @@ const UpdateCategory = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        updateCategory(res.data);
         setLoading(false);
         setShowModal(false);
-        navigate(0);
       })
       .catch((error) => {
-        alert("Controlla i campi");
+        console.error("errore nell'update della categoria: ", error);
         setLoading(false);
       });
   };
@@ -71,14 +72,14 @@ const UpdateCategory = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        deleteCategory(res.data.deletedCategoryId);
         setLoading(false);
         setShowModal(false);
-        navigate(0);
       })
       .catch((error) => {
+        console.error("errore alla cancellazione: ", error);
         setLoading(false);
-        console.log(error);
       });
   };
 

@@ -12,7 +12,7 @@ const Categories = () => {
 
   useEffect(() => {
     setIsSimpleModeOn(user?.settings.isSimpleModeOn);
-  }, [user]);
+  }, [user, categories]);
 
   return (
     <div>

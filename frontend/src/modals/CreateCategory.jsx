@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
-import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import useContentStore from "../store/useContentStore";
 import { HandCoins } from "lucide-react";
+import useDataStore from "../store/useDataStore";
 
 const CreateCategory = () => {
+  //store
+  const { addCategory } = useDataStore();
   const { setShowModal } = useContentStore();
+  //util
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+  //component state
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [hexColor, setHexColor] = useState("#D0D0D0");
@@ -21,7 +24,6 @@ const CreateCategory = () => {
       description,
       hexColor,
     };
-    console.log(data);
     setLoading(true);
     axios
       .post(`${BASEURL}/category/create`, data, {
@@ -29,13 +31,13 @@ const CreateCategory = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        addCategory(res.data);
         setLoading(false);
         setShowModal(false);
-        navigate(0);
       })
       .catch((error) => {
-        alert("Controlla i campi");
+        alert("errore in creazione categoria: ", error);
         setLoading(false);
       });
   };

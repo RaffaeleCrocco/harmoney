@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
-import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import Select from "react-select";
 import useDataStore from "../store/useDataStore";
@@ -9,10 +8,14 @@ import useContentStore from "../store/useContentStore";
 import { ReceiptText } from "lucide-react";
 
 const CreateTransaction = () => {
+  //store
   const { setShowModal } = useContentStore();
-  const { categories } = useDataStore();
+  const { categories, addTransaction } = useDataStore();
+
+  //util
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+
+  //component state
   const [type, setType] = useState("expense");
   const [amount, setAmount] = useState();
   const [title, setTitle] = useState("");
@@ -32,7 +35,6 @@ const CreateTransaction = () => {
       date,
       categoryIds,
     };
-    console.log(data);
     setLoading(true);
     axios
       .post(`${BASEURL}/transaction/create`, data, {
@@ -40,10 +42,10 @@ const CreateTransaction = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        addTransaction(res.data);
         setLoading(false);
         setShowModal(false);
-        navigate(0);
       })
       .catch((error) => {
         alert("Controlla i campi");

@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
-import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../config";
 import Select from "react-select";
 import useContentStore from "../store/useContentStore";
 import useDataStore from "../store/useDataStore";
 
 const UpdateTransaction = () => {
+  //store
   const { setShowModal } = useContentStore();
-  const { categories, transactionIdToUpdate } = useDataStore();
+  const {
+    categories,
+    transactionIdToUpdate,
+    updateTransaction,
+    deleteTransaction,
+  } = useDataStore();
+
+  //util
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+
+  //component state
   const [type, setType] = useState("");
   const [amount, setAmount] = useState("");
   const [title, setTitle] = useState("");
@@ -56,13 +64,13 @@ const UpdateTransaction = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        updateTransaction(res.data);
         setLoading(false);
         setShowModal(false);
-        navigate(0);
       })
       .catch((error) => {
-        alert("Controlla i campi");
+        alert("errore in update:", error);
         setLoading(false);
       });
   };
@@ -75,14 +83,14 @@ const UpdateTransaction = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        deleteTransaction(res.data.deletedTransactionId);
         setLoading(false);
         setShowModal(false);
-        navigate(0);
       })
       .catch((error) => {
+        alert("errore in delete:", error);
         setLoading(false);
-        console.log(error);
       });
   };
 

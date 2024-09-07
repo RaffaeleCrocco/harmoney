@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import { BASEURL } from "../config";
 
-const useDataStore = create((set) => ({
+const useDataStore = create((set, get) => ({
   user: null,
   transactions: [],
   categories: [],
@@ -48,6 +48,52 @@ const useDataStore = create((set) => ({
   setTransactionIdToUpdate: (content) =>
     set({ transactionIdToUpdate: content }),
   setCategoryIdToUpdate: (content) => set({ categoryIdToUpdate: content }),
+
+  addTransaction: (transaction) => {
+    set((state) => ({
+      transactions: [...state.transactions, transaction],
+    }));
+  },
+
+  updateTransaction: (updatedTransaction) => {
+    set((state) => ({
+      transactions: state.transactions.map((transaction) =>
+        transaction._id === updatedTransaction._id
+          ? updatedTransaction
+          : transaction
+      ),
+    }));
+  },
+
+  deleteTransaction: (deletedTransactionId) => {
+    set((state) => ({
+      transactions: state.transactions.filter(
+        (transaction) => transaction._id !== deletedTransactionId
+      ),
+    }));
+  },
+
+  addCategory: (category) => {
+    set((state) => ({
+      categories: [...state.categories, category],
+    }));
+  },
+
+  updateCategory: (updatedCategory) => {
+    set((state) => ({
+      categories: state.categories.map((category) =>
+        category._id === updatedCategory._id ? updatedCategory : category
+      ),
+    }));
+  },
+
+  deleteCategory: (deletedCategoryId) => {
+    set((state) => ({
+      categories: state.categories.filter(
+        (category) => category._id !== deletedCategoryId
+      ),
+    }));
+  },
 }));
 
 export default useDataStore;
