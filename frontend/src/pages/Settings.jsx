@@ -23,6 +23,7 @@ const Settings = () => {
   const [isRememberFiltersOn, setIsRememberFiltersOn] = useState(false);
   const [startingAmount, setStartingAmount] = useState(0);
   const [deleteLabel, setDeleteLabel] = useState("");
+  const [isDarkModeOn, setIsDarkModeOn] = useState(false);
 
   //filter state
   const [currentFilters, setCurrentFilters] = useState();
@@ -32,6 +33,7 @@ const Settings = () => {
     setStartingAmount(user?.settings.startingAmount);
     setIsSimpleModeOn(user?.settings.isSimpleModeOn);
     setIsRememberFiltersOn(user?.settings.isRememberFiltersOn);
+    setIsDarkModeOn(user?.settings.isDarkModeOn);
     setCurrentFilters(filters);
   }, [user, filters]);
 
@@ -41,6 +43,7 @@ const Settings = () => {
       isPrivacyFilterOn,
       startingAmount,
       isRememberFiltersOn,
+      isDarkModeOn,
     };
     setLoading(true);
     axios
@@ -86,7 +89,7 @@ const Settings = () => {
 
   return (
     <div className="mb-10">
-      <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
+      <div className="w-full border-b border-zinc-200 dark:border-gray-600 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
         <div className="me-auto">Impostazioni</div>
       </div>
       <div className="min-w-full min-h-[60vh]">
@@ -108,7 +111,29 @@ const Settings = () => {
                 type="checkbox"
                 checked={isPrivacyFilterOn}
                 onChange={() => setIsPrivacyFilterOn(!isPrivacyFilterOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200"
+              />
+            </label>
+          </div>
+        </div>
+        <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
+          <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
+            <p className="font-semibold">Dark Mode</p>
+            <p className="text-xs mt-1">
+              Imposta il sito in dark mode. Ricorderemo della scelta ad ogni
+              accesso.
+            </p>
+          </div>
+          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md">
+            <label className="flex p-3 w-full text-sm ">
+              <p className="text-xs mt-1 w-2/3">
+                Le opzioni di dashboard semplificata rimarranno disponibili.
+              </p>
+              <input
+                type="checkbox"
+                checked={isDarkModeOn}
+                onChange={() => setIsDarkModeOn(!isDarkModeOn)}
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200 "
               />
             </label>
           </div>
@@ -131,7 +156,7 @@ const Settings = () => {
                 type="checkbox"
                 checked={isSimpleModeOn}
                 onChange={() => setIsSimpleModeOn(!isSimpleModeOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200 "
               />
             </label>
           </div>
@@ -153,7 +178,7 @@ const Settings = () => {
               value={startingAmount}
               onChange={(e) => setStartingAmount(e.target.value)}
               type="number"
-              className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+              className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white dark:bg-black dark:border-gray-900 dark:text-gray-200 border text-gray-800 rounded-md"
             />
           </div>
         </div>
@@ -174,7 +199,7 @@ const Settings = () => {
                 type="checkbox"
                 checked={isRememberFiltersOn}
                 onChange={() => setIsRememberFiltersOn(!isRememberFiltersOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200 "
               />
             </label>
           </div>
@@ -196,7 +221,7 @@ const Settings = () => {
               <input
                 onChange={(e) => setDeleteLabel(e.target.value)}
                 type="text"
-                className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+                className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white dark:bg-black dark:border-gray-900 dark:text-gray-200 border text-gray-800 rounded-md"
                 placeholder={user.username}
               />
             </div>
@@ -215,7 +240,7 @@ const Settings = () => {
           <button
             onClick={handleUpdateSettings}
             type="button"
-            className="flex-inline text-center py-3 px-8 text-sm font-medium rounded-md border border-transparent bg-green-600 text-white"
+            className="flex-inline text-center py-3 px-8 text-sm font-medium rounded-md border border-transparent bg-green-600 dark:bg-green-400 dark:text-black text-white"
           >
             Salva le modifiche
           </button>

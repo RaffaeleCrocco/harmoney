@@ -18,7 +18,7 @@ import { Maximize2, Minimize2 } from "lucide-react";
 
 const CategoryGraph = () => {
   //store
-  const { categories, transactions } = useDataStore();
+  const { categories, transactions, user } = useDataStore();
   const { filters } = useFiltersStore();
   //component state
   const [data, setData] = useState([]);
@@ -46,7 +46,7 @@ const CategoryGraph = () => {
   const customTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-2 rounded-sm border text-sm pe-5">
+        <div className="bg-white dark:bg-black p-2 rounded-sm border text-sm pe-5">
           <p className="font-semibold mb-1">{label}</p>
           <div>
             Uscite: <span>&euro;{payload[0].value}</span>
@@ -61,7 +61,7 @@ const CategoryGraph = () => {
     <div
       className={
         fullscreen
-          ? "fixed top-0 left-0 z-50 w-full h-full bg-white p-2 lg:p-10"
+          ? "fixed top-0 left-0 z-50 w-full h-full bg-white dark:bg-black p-2 lg:p-10"
           : `w-full h-96 p-1 lg:p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden mb-8`
       }
     >
@@ -99,7 +99,10 @@ const CategoryGraph = () => {
       </div>
       <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data}>
-          <CartesianGrid strokeDasharray="2 2" />
+          <CartesianGrid
+            strokeDasharray="2 2"
+            opacity={user?.settings.isDarkModeOn ? 0.3 : 1}
+          />
           <XAxis
             dataKey="name"
             style={{
@@ -116,7 +119,14 @@ const CategoryGraph = () => {
               return [0, maxExpenses];
             }}
           />
-          <Tooltip content={customTooltip} />
+          <Tooltip
+            content={customTooltip}
+            cursor={
+              user?.settings.isDarkModeOn
+                ? { opacity: "0.2" }
+                : { opacity: "0.8" }
+            }
+          />
           <Bar
             dataKey="amount"
             name="Totale spesa"
@@ -126,7 +136,19 @@ const CategoryGraph = () => {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={index === hoveredIndex ? entry.hexColor : "#000000"}
+                fill={
+                  user?.settings.isSimpleModeOn
+                    ? index === hoveredIndex
+                      ? entry.hexColor
+                      : user?.settings.isDarkModeOn
+                      ? "#a6a6a6"
+                      : "#000000"
+                    : index === hoveredIndex
+                    ? user?.settings.isDarkModeOn
+                      ? "#a6a6a6"
+                      : "#000000"
+                    : entry.hexColor
+                }
               />
             ))}
           </Bar>

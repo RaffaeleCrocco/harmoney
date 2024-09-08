@@ -75,6 +75,7 @@ router.put("/update", async (req, res) => {
     startingAmount,
     isSimpleModeOn,
     isRememberFiltersOn,
+    isDarkModeOn,
   } = req.body;
   const id = req.user.userId; // Extract userId from the token
 
@@ -88,6 +89,7 @@ router.put("/update", async (req, res) => {
           startingAmount,
           isSimpleModeOn,
           isRememberFiltersOn,
+          isDarkModeOn,
         },
       },
       { new: true, runValidators: true }

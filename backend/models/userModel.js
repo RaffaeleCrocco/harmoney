@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
     startingAmount: { type: Number, default: 0 },
     isSimpleModeOn: { type: Boolean, default: false },
     isRememberFiltersOn: { type: Boolean, default: false },
+    isDarkModeOn: { type: Boolean, default: false },
   },
   filters: {
     categories: { type: String, default: "all" },

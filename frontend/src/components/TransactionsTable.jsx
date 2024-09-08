@@ -33,7 +33,7 @@ const TransactionsTable = () => {
   }, [transactions, filters]);
 
   return (
-    <div className="w-full h-full border border-zinc-400 lg:border-zinc-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+    <div className="w-full h-full border border-zinc-400 lg:border-zinc-800 dark:border-gray-600 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
       {filteredTransactions.length > 0 ? (
         filteredTransactions.map((transaction) => (
           <div
@@ -42,10 +42,10 @@ const TransactionsTable = () => {
               setModalContent(2);
               setTransactionIdToUpdate(transaction._id);
             }}
-            className="w-full py-2 lg:py-0.5 border-b last:border-none border-gray-200 rounded-sm flex items-center hover:bg-gray-100 text-sm"
+            className="w-full py-2 lg:py-0.5 border-b last:border-none border-gray-200 dark:border-gray-600 rounded-sm flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 text-sm"
             key={transaction._id}
           >
-            <div className="hidden lg:block w-44 mx-2 text-xs text-zinc-400 text-center">
+            <div className="hidden lg:block w-44 mx-2 text-xs text-zinc-400 dark:text-gray-400 text-center">
               {new Date(transaction.date).toLocaleDateString(undefined, {
                 month: "short",
                 day: "numeric",
@@ -66,7 +66,9 @@ const TransactionsTable = () => {
               )}
             </div>
             <div className="ms-2 lg:ms-0 w-full lg:w-1/3 truncate">
-              <div className="text-zinc-800">{transaction.title}</div>
+              <div className="text-zinc-800 dark:text-gray-200">
+                {transaction.title}
+              </div>
             </div>
             <div className="w-full hidden lg:flex justify-end">
               <div className="flex h-full flex-wrap gap-2">
@@ -76,12 +78,14 @@ const TransactionsTable = () => {
                       style={
                         isSimpleModeOn
                           ? {}
+                          : user?.settings.isDarkModeOn
+                          ? { backgroundColor: category.hexColor + "80" }
                           : { backgroundColor: category.hexColor + "22" }
                       }
                       className={
                         isSimpleModeOn
-                          ? "text-xs text-zinc-400"
-                          : "px-2.5 rounded-sm text-xs text-zinc-800"
+                          ? "text-xs text-zinc-400 dark:text-gray-400"
+                          : "px-2.5 rounded-sm text-xs text-zinc-800 dark:text-gray-300"
                       }
                       key={item}
                     >

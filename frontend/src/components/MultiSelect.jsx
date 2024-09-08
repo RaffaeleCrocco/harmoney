@@ -47,7 +47,7 @@ const MultiSelect = () => {
       ref={dropdownRef}
     >
       <div
-        className="w-full h-full px-4 py-[4.5px] rounded-md border border-zinc-800 flex items-center cursor-pointer"
+        className="w-full h-full px-4 py-[4.5px] rounded-md border border-zinc-800 dark:border-gray-400 flex items-center cursor-pointer"
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
       >
         {filters.selectedCategories?.length} item selezionati
@@ -72,7 +72,7 @@ const MultiSelect = () => {
       <div
         className={`${
           isDropdownOpen ? "absolute" : "hidden"
-        } z-10 -bottom-2 translate-y-full bg-white w-full flex flex-col gap-1 border border-gray-200 rounded-md px-2 py-2 max-h-64 overflow-auto scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent`}
+        } z-10 -bottom-2 translate-y-full bg-white dark:bg-black w-full flex flex-col gap-1 border border-gray-200 dark:border-gray-600 rounded-md px-2 py-2 max-h-64 overflow-auto scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent`}
       >
         {categories.map((category) => {
           const isSelected = filters.selectedCategories?.includes(category._id);

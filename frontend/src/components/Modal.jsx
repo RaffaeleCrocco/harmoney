@@ -37,7 +37,7 @@ const Modal = () => {
       <div className="w-full lg:w-96 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-72 lg:-translate-y-1/2 z-50 p-5">
         <div
           onClick={(e) => e.stopPropagation()}
-          className="bg-white rounded-md p-3 lg:p-1"
+          className="bg-white dark:bg-black dark:border dark:border-gray-600 dark:text-gray-200 rounded-md p-3 lg:p-1"
         >
           {renderedContent}
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Categories from "./Categories";
@@ -16,9 +16,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   //stores
-  const { fetchData, error, loading } = useDataStore();
+  const { fetchData, error, loading, user } = useDataStore();
   const { content, showModal } = useContentStore();
   const { fetchFilters } = useFiltersStore();
+
+  //component state
+  const [darkMode, setDarkMode] = useState(false);
 
   //use effect da testare
   useEffect(() => {
@@ -47,6 +50,10 @@ const Dashboard = () => {
     tryFetch();
   }, [fetchData, fetchFilters, error, navigate]);
 
+  useEffect(() => {
+    setDarkMode(user?.settings.isDarkModeOn);
+  }, [user]);
+
   let renderedContent;
   switch (content) {
     case 1:
@@ -68,10 +75,14 @@ const Dashboard = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="select-none h-screen overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
-      <Navigation />
-      <div>{renderedContent}</div>
-      {showModal ? <Modal /> : ""}
+    <div className={darkMode ? "dark" : ""}>
+      <div className="dark:bg-black select-none h-screen overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+        <Navigation />
+        <div className="dark:bg-black dark:text-gray-200">
+          {renderedContent}
+        </div>
+        {showModal ? <Modal /> : ""}
+      </div>
     </div>
   );
 };

@@ -19,7 +19,7 @@ import { Maximize2, Minimize2 } from "lucide-react";
 
 const TransactionsGraph = () => {
   //store
-  const { transactions } = useDataStore();
+  const { transactions, user } = useDataStore();
   const { filters } = useFiltersStore();
   //component state
   const [data, setData] = useState([]);
@@ -46,7 +46,7 @@ const TransactionsGraph = () => {
   const customTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-2 rounded-sm border text-sm pe-5">
+        <div className="bg-white dark:bg-black p-2 rounded-sm border text-sm pe-5">
           <p className="font-semibold mb-1">{label}</p>
           <div>
             Uscite:{" "}
@@ -70,7 +70,7 @@ const TransactionsGraph = () => {
     <div
       className={
         fullscreen
-          ? "fixed top-0 left-0 z-50 w-full h-full bg-white p-2 lg:p-10"
+          ? "fixed top-0 left-0 z-50 w-full h-full bg-white dark:bg-black p-2 lg:p-10"
           : `w-full h-96 p-1 lg:p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden mb-8`
       }
     >
@@ -108,10 +108,17 @@ const TransactionsGraph = () => {
       </div>
       <ResponsiveContainer width="100%" height="90%">
         <LineChart width={500} height={300} data={data}>
-          <CartesianGrid strokeDasharray="2 2" />
+          <CartesianGrid
+            strokeDasharray="2 2"
+            opacity={user?.settings.isDarkModeOn ? 0.3 : 1}
+          />
           <Tooltip
             content={customTooltip}
-            cursor={{ stroke: "black", strokeWidth: 2 }}
+            cursor={
+              user?.settings.isDarkModeOn
+                ? { color: "#ffffff" }
+                : { color: "#000000" }
+            }
           />
           <YAxis
             width={40}

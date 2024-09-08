@@ -61,7 +61,7 @@ const MoneyIland = () => {
         <span className="text-sm">€</span>
         <div
           className={`w-full text-3xl leading-none me-auto ${
-            hidden ? "blur-md bg-white/30" : ""
+            hidden ? "blur-md bg-white/30 dark:bg-black/30" : ""
           }`}
         >
           {totalAmount.toFixed(2)}
@@ -78,7 +78,7 @@ const MoneyIland = () => {
           <span className="text-sm">€</span>
           <div
             className={`w-full text-3xl leading-none ${
-              hidden ? "blur-md bg-white/30" : ""
+              hidden ? "blur-md bg-white/30 dark:bg-black/30" : ""
             }`}
           >
             {monthlyTotalAmount.toFixed(2)}

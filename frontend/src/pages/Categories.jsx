@@ -16,20 +16,20 @@ const Categories = () => {
 
   return (
     <div>
-      <div className="w-full border-b border-zinc-200 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
+      <div className="w-full border-b border-zinc-200 dark:border-gray-600 py-8 px-8 font-semibold text-2xl flex justify-between items-center gap-2">
         <div className="me-auto">Categorie</div>
         <div
           onClick={() => {
             setShowModal(true);
             setModalContent(3);
           }}
-          className="text-sm cursor-pointer text-center bg-zinc-800 text-white rounded-md py-[5.2px] px-4"
+          className="text-sm cursor-pointer text-center bg-zinc-800 dark:bg-white text-white dark:text-black  rounded-md py-[5.2px] px-4"
         >
           Crea nuova
         </div>
       </div>
       <div className="p-5 lg:p-8">
-        <div className="w-full border border-zinc-400 lg:border-zinc-800 rounded-md">
+        <div className="w-full border border-zinc-400 lg:border-zinc-800 dark:border-gray-600 rounded-md">
           {categories.length > 0 ? (
             categories.map((category) => (
               <div
@@ -38,14 +38,16 @@ const Categories = () => {
                   setModalContent(4);
                   setCategoryIdToUpdate(category._id);
                 }}
-                className="w-full cursor-pointer py-2 lg:py-0.5 px-2 border-b last:border-none border-gray-200 rounded-sm flex items-center hover:bg-gray-100 text-sm"
+                className="w-full cursor-pointer py-2 lg:py-0.5 px-2 border-b last:border-none border-gray-200 dark:border-gray-600 rounded-sm flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 text-sm"
                 key={category._id}
               >
-                <div className="w-36 text-zinc-800">{category.name}</div>
+                <div className="w-36 text-zinc-800 dark:text-gray-200">
+                  {category.name}
+                </div>
                 {isSimpleModeOn ? (
                   ""
                 ) : (
-                  <div className="w-3/5 px-2 text-zinc-400 overflow-hidden truncate text-xs">
+                  <div className="w-3/5 px-2 text-zinc-400 dark:text-gray-400 overflow-hidden truncate text-xs">
                     {category.description}
                   </div>
                 )}

@@ -21,7 +21,7 @@ const FilterModal = () => {
       </p>
       <div className="block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
         <select
-          className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8"
+          className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8 dark:bg-black dark:text-gray-200"
           onChange={(e) => setFilters({ type: e.target.value }, token)}
           value={filters.type}
         >
@@ -36,7 +36,7 @@ const FilterModal = () => {
       </p>
       <div className="block border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
         <select
-          className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8"
+          className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8 dark:bg-black dark:text-gray-200"
           onChange={(e) => setFilters({ categories: e.target.value }, token)}
           value={filters.categories}
         >
@@ -56,7 +56,7 @@ const FilterModal = () => {
       </p>
       <div className="border border-zinc-800 text-zinc-800 rounded-md py-1 ps-2 pe-4">
         <select
-          className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8"
+          className="cursor-pointer flex items-center gap-x-2 text-sm border-none w-full h-8 dark:bg-black dark:text-gray-200"
           onChange={(e) => setFilters({ period: e.target.value }, token)}
           value={filters.period}
         >

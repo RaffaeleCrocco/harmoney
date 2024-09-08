@@ -10,7 +10,7 @@ import { ReceiptText } from "lucide-react";
 const CreateTransaction = () => {
   //store
   const { setShowModal } = useContentStore();
-  const { categories, addTransaction } = useDataStore();
+  const { categories, addTransaction, user } = useDataStore();
 
   //util
   const token = localStorage.getItem("token");
@@ -83,6 +83,22 @@ const CreateTransaction = () => {
     </div>
   );
 
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      background: "none",
+    }),
+    menuList: (styles) => ({
+      ...styles,
+      background: user?.settings.isDarkModeOn ? "#000000" : "#ffffff",
+    }),
+    option: (styles, { isFocused, isSelected }) => ({
+      ...styles,
+      background: user?.settings.isDarkModeOn ? "#000000" : "#ffffff",
+      zIndex: 1,
+    }),
+  };
+
   return (
     <div className="p-4 flex flex-col space-y-4">
       <span className="text-xl font-semibold flex gap-3 items-center">
@@ -97,7 +113,7 @@ const CreateTransaction = () => {
           <input
             onChange={(e) => setTitle(e.target.value)}
             type="text"
-            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
             placeholder="Spesa settimanale"
           />
           {/* Importo della transazione */}
@@ -105,12 +121,12 @@ const CreateTransaction = () => {
             autoFocus
             onChange={(e) => setAmount(e.target.value)}
             type="number"
-            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 rounded-md"
+            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
             placeholder="12,50 €"
           />
           {/* Selezione del tipo di transazione */}
           <ul className="flex flex-col sm:flex-row">
-            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
+            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 dark:bg-black dark:text-gray-200 dark:border-gray-600 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
               <div className="relative flex items-start w-full">
                 <div className="flex items-center h-5">
                   <input
@@ -131,7 +147,7 @@ const CreateTransaction = () => {
                 </label>
               </div>
             </li>
-            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
+            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 dark:bg-black dark:text-gray-200 dark:border-gray-600 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
               <div className="relative flex items-start w-full">
                 <div className="flex items-center h-5">
                   <input
@@ -151,7 +167,7 @@ const CreateTransaction = () => {
                 </label>
               </div>
             </li>
-            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
+            <li className="w-full inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800 dark:bg-black dark:text-gray-200 dark:border-gray-600 -mt-px first:rounded-t-md first:mt-0 last:rounded-b-md sm:-ms-px sm:mt-0 sm:first:rounded-se-none sm:first:rounded-es-md sm:last:rounded-es-none sm:last:rounded-se-md">
               <div className="relative flex items-start w-full">
                 <div className="flex items-center h-5">
                   <input
@@ -173,7 +189,7 @@ const CreateTransaction = () => {
             </li>
           </ul>
           {/* Seleziona la data della transizione */}
-          <div className="w-full rounded-md bg-gray-200">
+          <div className="w-full rounded-md bg-gray-200 dark:bg-black">
             <input
               onChange={(e) => {
                 // Get the input value
@@ -192,7 +208,7 @@ const CreateTransaction = () => {
               }}
               value={date ? date : undefined}
               type="datetime-local"
-              className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 rounded-md text-sm "
+              className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 dark:bg-black rounded-md text-sm "
             />
           </div>
           {/* Selezione della categoria della transazione */}
@@ -201,6 +217,7 @@ const CreateTransaction = () => {
             getOptionValue={(option) => option._id}
             name="categories"
             options={categories}
+            styles={customStyles}
             formatOptionLabel={formatOptionLabel}
             onChange={handleCategoryChange}
             value={categories.filter((option) =>
@@ -214,14 +231,14 @@ const CreateTransaction = () => {
               onClick={() => {
                 setShowModal(false);
               }}
-              className="cursor-pointer text-center w-full py-3 px-4 text-sm font-medium rounded-md border border-zinc-800 text-zinc-800"
+              className="cursor-pointer text-center w-full py-3 px-4 text-sm font-medium rounded-md border border-zinc-800 text-zinc-800 dark:border-gray-200 dark:text-gray-200"
             >
               Annulla
             </div>
             <button
               onClick={handleSaveTransaction}
               type="button"
-              className="text-center w-full py-3 px-4 text-sm font-medium rounded-md border border-transparent bg-zinc-800 text-white"
+              className="text-center w-full py-3 px-4 text-sm font-medium rounded-md border border-transparent bg-zinc-800 text-white dark:bg-white dark:text-black"
             >
               Salva
             </button>
