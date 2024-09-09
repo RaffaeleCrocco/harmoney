@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import Spinner from "../components/Spinner";
 import { BASEURL } from "../config";
-import Select from "react-select";
 import useDataStore from "../store/useDataStore";
 import useContentStore from "../store/useContentStore";
 import { ReceiptText } from "lucide-react";
+import CategoryMultiSelect from "../components/CategoryMultiSelect";
 
 const CreateTransaction = () => {
   //store
   const { setShowModal } = useContentStore();
-  const { categories, addTransaction, user } = useDataStore();
+  const { addTransaction } = useDataStore();
 
   //util
   const token = localStorage.getItem("token");
@@ -51,52 +51,6 @@ const CreateTransaction = () => {
         alert("Controlla i campi");
         setLoading(false);
       });
-  };
-
-  const handleCategoryChange = (selectedOptions) => {
-    // Extract the category IDs from the selected options
-    const ids = selectedOptions
-      ? selectedOptions.map((option) => option._id)
-      : [];
-    setCategoryIds(ids);
-  };
-
-  const formatOptionLabel = ({ name, hexColor }) => (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        padding: "2px 10px 2px 5px",
-        borderRadius: "4px",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: hexColor,
-          width: 18,
-          height: 18,
-          borderRadius: 4,
-          marginRight: 8,
-        }}
-      />
-      {name.slice(0, 12)}
-    </div>
-  );
-
-  const customStyles = {
-    control: (base, state) => ({
-      ...base,
-      background: "none",
-    }),
-    menuList: (styles) => ({
-      ...styles,
-      background: user?.settings.isDarkModeOn ? "#000000" : "#ffffff",
-    }),
-    option: (styles, { isFocused, isSelected }) => ({
-      ...styles,
-      background: user?.settings.isDarkModeOn ? "#000000" : "#ffffff",
-      zIndex: 1,
-    }),
   };
 
   return (
@@ -212,19 +166,12 @@ const CreateTransaction = () => {
             />
           </div>
           {/* Selezione della categoria della transazione */}
-          <Select
-            isMulti
-            getOptionValue={(option) => option._id}
-            name="categories"
-            options={categories}
-            styles={customStyles}
-            formatOptionLabel={formatOptionLabel}
-            onChange={handleCategoryChange}
-            value={categories.filter((option) =>
-              categoryIds.includes(option._id)
-            )}
-            placeholder="-"
-          />
+          <div className="w-full h-12 py-[0.75px]">
+            <CategoryMultiSelect
+              categoryIds={categoryIds}
+              setCategoryIds={setCategoryIds}
+            />
+          </div>
 
           <div className="flex gap-5">
             <div
