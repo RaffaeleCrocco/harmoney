@@ -62,7 +62,7 @@ const CategoryGraph = () => {
       className={
         fullscreen
           ? "fixed top-0 left-0 z-50 w-full h-full bg-white dark:bg-black p-2 lg:p-10"
-          : `w-full h-96 p-1 lg:p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden mb-8`
+          : `w-full h-96 p-1 lg:p-6 border border-gray-400 rounded-md overflow-hidden mb-8`
       }
     >
       <div className="flex mb-5 text-xs">

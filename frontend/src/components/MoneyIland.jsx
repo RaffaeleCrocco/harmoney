@@ -57,7 +57,7 @@ const MoneyIland = () => {
 
   return (
     <div className="w-full lg:w-64 lg:h-96 flex flex-col gap-6">
-      <div className="w-full p-6 border border-zinc-400 lg:border-zinc-800 rounded-md overflow-hidden flex gap-1 font-semibold items-center">
+      <div className="w-full p-6 border border-gray-400 rounded-md overflow-hidden flex gap-1 font-semibold items-center">
         <span className="text-sm">€</span>
         <div
           className={`w-full text-3xl leading-none me-auto ${
@@ -73,7 +73,7 @@ const MoneyIland = () => {
           {hidden ? <Eye size={18} /> : <EyeOff size={18} />}
         </div>
       </div>
-      <div className="hidden lg:flex flex-col w-full h-full p-6 border border-zinc-800 rounded-md overflow-hidden">
+      <div className="flex-col w-full h-full p-6 border border-gray-400 rounded-md overflow-hidden">
         <div className="w-full flex gap-2 font-semibold items-center">
           <span className="text-sm">€</span>
           <div

@@ -29,7 +29,7 @@ const Categories = () => {
         </div>
       </div>
       <div className="p-5 lg:p-8">
-        <div className="w-full border border-zinc-400 lg:border-zinc-800 dark:border-gray-600 rounded-md">
+        <div className="w-full border border-gray-500 lg:border-zinc-800 dark:border-gray-800 rounded-md">
           {categories.length > 0 ? (
             categories.map((category) => (
               <div
@@ -38,7 +38,7 @@ const Categories = () => {
                   setModalContent(4);
                   setCategoryIdToUpdate(category._id);
                 }}
-                className="w-full cursor-pointer py-2 lg:py-0.5 px-2 border-b last:border-none border-gray-200 dark:border-gray-600 rounded-sm flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 text-sm"
+                className="w-full cursor-pointer py-2 lg:py-0.5 px-2 border-b last:border-none border-gray-200 dark:border-gray-800 rounded-sm flex items-center hover:bg-black/5 dark:hover:bg-white/5 text-sm"
                 key={category._id}
               >
                 <div className="w-36 text-zinc-800 dark:text-gray-200">

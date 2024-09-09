@@ -33,7 +33,7 @@ const TransactionsTable = () => {
   }, [transactions, filters]);
 
   return (
-    <div className="w-full h-full border border-zinc-400 lg:border-zinc-800 dark:border-gray-600 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
+    <div className="w-full h-full border border-gray-500 dark:border-gray-800 rounded-md overflow-auto scrollbar-thin scrollbar-thumb-zinc-800 scrollbar-track-transparent">
       {filteredTransactions.length > 0 ? (
         filteredTransactions.map((transaction) => (
           <div
@@ -42,7 +42,7 @@ const TransactionsTable = () => {
               setModalContent(2);
               setTransactionIdToUpdate(transaction._id);
             }}
-            className="w-full py-2 lg:py-0.5 border-b last:border-none border-gray-200 dark:border-gray-600 rounded-sm flex items-center hover:bg-gray-100 dark:hover:bg-gray-800 text-sm"
+            className="w-full py-2 lg:py-0.5 border-b last:border-none border-gray-200 dark:border-gray-800 rounded-sm flex items-center hover:bg-black/5 dark:hover:bg-white/5 text-sm cursor-pointer"
             key={transaction._id}
           >
             <div className="hidden lg:block w-44 mx-2 text-xs text-zinc-400 dark:text-gray-400 text-center">
@@ -74,22 +74,29 @@ const TransactionsTable = () => {
               <div className="flex h-full flex-wrap gap-2">
                 {handleCategoriesTag(transaction.categoryIds, categories).map(
                   (category, item) => (
-                    <div
-                      style={
-                        isSimpleModeOn
-                          ? {}
-                          : user?.settings.isDarkModeOn
-                          ? { backgroundColor: category.hexColor + "80" }
-                          : { backgroundColor: category.hexColor + "22" }
-                      }
-                      className={
-                        isSimpleModeOn
-                          ? "text-xs text-zinc-400 dark:text-gray-400"
-                          : "px-2.5 rounded-sm text-xs text-zinc-800 dark:text-gray-300"
-                      }
-                      key={item}
-                    >
-                      {category.name}
+                    <div className="flex">
+                      <div
+                        className="h-4 w-1 rounded-l-sm "
+                        key={item}
+                        style={{ backgroundColor: category.hexColor }}
+                      ></div>
+                      <div
+                        style={
+                          isSimpleModeOn
+                            ? {}
+                            : user?.settings.isDarkModeOn
+                            ? { backgroundColor: category.hexColor + "40" }
+                            : { backgroundColor: category.hexColor + "20" }
+                        }
+                        className={
+                          isSimpleModeOn
+                            ? "text-xs text-zinc-400 dark:text-gray-400"
+                            : "ps-1.5 pe-2 rounded-r-sm text-xs text-zinc-800 dark:text-gray-300"
+                        }
+                        key={item}
+                      >
+                        {category.name}
+                      </div>
                     </div>
                   )
                 )}
@@ -99,7 +106,9 @@ const TransactionsTable = () => {
               <span
                 className={`inline-flex items-center gap-2 text-xs font-semibold ${
                   transaction.type === "income"
-                    ? "text-green-500"
+                    ? user?.settings.isDarkModeOn
+                      ? "text-green-400"
+                      : "text-green-500"
                     : transaction.type === "expense"
                     ? "text-zinc-500"
                     : "text-blue-500"
