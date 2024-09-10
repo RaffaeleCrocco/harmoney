@@ -1,6 +1,7 @@
 import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config.js";
+import bcrypt from "bcrypt";
 import express from "express";
 import mongoose from "mongoose";
 import { Transaction } from "../models/transactionModel.js";
@@ -66,6 +67,29 @@ router.delete("/delete-user/:id", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
+  }
+});
+
+router.put("/change-password", async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  try {
+    const { userId } = req.user; // Extract userId from the token payload
+    const user = await User.findById(userId);
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Password attuale errata." });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "password updated" });
+  } catch (error) {
+    res.status(500).json({ message: "generic error", error });
   }
 });
 

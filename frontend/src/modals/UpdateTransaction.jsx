@@ -119,7 +119,7 @@ const UpdateTransaction = () => {
             onChange={(e) => setAmount(e.target.value)}
             type="number"
             className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800  dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
-            placeholder="10$"
+            placeholder="12.50 €"
           />
           {/* Selezione del tipo di transazione */}
           <ul className="flex flex-col sm:flex-row">

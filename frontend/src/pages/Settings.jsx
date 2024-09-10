@@ -5,8 +5,6 @@ import { BASEURL } from "../config";
 import useDataStore from "../store/useDataStore";
 import Spinner from "../components/Spinner";
 import useFiltersStore from "../store/useFiltersStore";
-import { SlidersHorizontal } from "lucide-react";
-import MultiSelect from "../components/MultiSelect";
 
 const Settings = () => {
   const token = localStorage.getItem("token");
@@ -24,6 +22,8 @@ const Settings = () => {
   const [startingAmount, setStartingAmount] = useState(0);
   const [deleteLabel, setDeleteLabel] = useState("");
   const [isDarkModeOn, setIsDarkModeOn] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   //filter state
   const [currentFilters, setCurrentFilters] = useState();
@@ -70,6 +70,29 @@ const Settings = () => {
     setLoading(true);
     axios
       .delete(`${BASEURL}/settings/delete-user/${user.userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        localStorage.removeItem("token");
+        setLoading(false);
+        navigate("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  };
+
+  const handlePasswordChange = () => {
+    const data = {
+      currentPassword,
+      newPassword,
+    };
+    setLoading(true);
+    axios
+      .put(`${BASEURL}/settings/change-password`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -207,6 +230,49 @@ const Settings = () => {
                 className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-gray-200 dark:bg-black dark:checked:bg-gray-200 "
               />
             </label>
+          </div>
+        </div>
+        {/* Modifica password */}
+        <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
+          <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
+            <p className="font-semibold">Modifica password</p>
+            <p className="text-xs mt-1">
+              Verrai disconennesso e dovrai utilizzare la nuova password per
+              effettuare il login.
+            </p>
+          </div>
+          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md p-4 flex flex-col lg:flex-row gap-4">
+            <div className="w-full">
+              <p className="text-xs">
+                Per confermare inserisci la tua password precedente.
+              </p>
+              <input
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                type="text"
+                className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white dark:bg-black dark:border-gray-900 dark:text-gray-200 border text-gray-800 rounded-md"
+                placeholder="Password attuale"
+              />
+            </div>
+            <div className="w-full">
+              <p className="text-xs">
+                Inserisci la nuova password e premi Modifica.
+              </p>
+              <input
+                onChange={(e) => setNewPassword(e.target.value)}
+                type="text"
+                className="w-full items-center mt-2 py-3 px-4 text-sm font-medium bg-white dark:bg-black dark:border-gray-900 dark:text-gray-200 border text-gray-800 rounded-md"
+                placeholder="Nuova password"
+              />
+            </div>
+            <div className="flex items-end justify-end">
+              <button
+                onClick={handlePasswordChange}
+                type="button"
+                className="flex-inline text-center py-3 px-8 text-sm font-medium rounded-md bg-zinc-800 dark:bg-gray-200 text-white dark:text-black"
+              >
+                Modifica
+              </button>
+            </div>
           </div>
         </div>
         {/* Elimina account */}
