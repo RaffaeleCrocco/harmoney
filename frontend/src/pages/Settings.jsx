@@ -93,6 +93,7 @@ const Settings = () => {
         <div className="me-auto">Impostazioni</div>
       </div>
       <div className="min-w-full min-h-[60vh]">
+        {/* Filtro privacy */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Filtro privacy</p>
@@ -111,11 +112,12 @@ const Settings = () => {
                 type="checkbox"
                 checked={isPrivacyFilterOn}
                 onChange={() => setIsPrivacyFilterOn(!isPrivacyFilterOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200"
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-gray-200 dark:bg-black dark:checked:bg-gray-200"
               />
             </label>
           </div>
         </div>
+        {/* Dark mode */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Dark Mode</p>
@@ -133,11 +135,12 @@ const Settings = () => {
                 type="checkbox"
                 checked={isDarkModeOn}
                 onChange={() => setIsDarkModeOn(!isDarkModeOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-gray-200 dark:bg-black dark:checked:bg-gray-200 "
               />
             </label>
           </div>
         </div>
+        {/* Dashboard semplificata */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Dashboard semplificata</p>
@@ -156,11 +159,12 @@ const Settings = () => {
                 type="checkbox"
                 checked={isSimpleModeOn}
                 onChange={() => setIsSimpleModeOn(!isSimpleModeOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-gray-200 dark:bg-black dark:checked:bg-gray-200 "
               />
             </label>
           </div>
         </div>
+        {/* Saldo iniziale */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Saldo iniziale</p>
@@ -182,6 +186,7 @@ const Settings = () => {
             />
           </div>
         </div>
+        {/* Ricorda i miei filtri */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Ricorda i miei filtri</p>
@@ -199,11 +204,12 @@ const Settings = () => {
                 type="checkbox"
                 checked={isRememberFiltersOn}
                 onChange={() => setIsRememberFiltersOn(!isRememberFiltersOn)}
-                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-none dark:bg-gray-600 dark:checked:bg-gray-200 "
+                className="appearance-none w-4 h-4 border-2 border-zinc-800 ms-auto mt-0.5 rounded bg-white checked:bg-zinc-800 dark:border-gray-200 dark:bg-black dark:checked:bg-gray-200 "
               />
             </label>
           </div>
         </div>
+        {/* Elimina account */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8">
           <div className="w-full lg:w-1/4 text-start lg:text-end pe-10">
             <p className="font-semibold">Elimina account</p>
@@ -212,7 +218,7 @@ const Settings = () => {
               eliminate, l'azione è irreversibile.
             </p>
           </div>
-          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-zinc-800 rounded-md p-4 flex gap-4">
+          <div className="w-full mt-5 lg:mt-0 lg:w-3/4 border border-red-500 rounded-md p-4 flex gap-4">
             <div className="w-full">
               <p className="text-xs">
                 Per confermare l'intenzione di eliminare il tuo account
@@ -229,13 +235,14 @@ const Settings = () => {
               <button
                 onClick={handleDeleteUser}
                 type="button"
-                className="flex-inline text-center py-3 px-8 text-sm font-medium rounded-md border border-transparent bg-zinc-800 text-white"
+                className="flex-inline text-center py-3 px-8 text-sm font-medium rounded-md bg-zinc-800 dark:bg-red-500 text-white dark:text-black"
               >
                 Elimina
               </button>
             </div>
           </div>
         </div>
+        {/* Salva impostazioni */}
         <div className="w-full flex flex-col lg:flex-row px-6 lg:px-52 mt-8 justify-end">
           <button
             onClick={handleUpdateSettings}

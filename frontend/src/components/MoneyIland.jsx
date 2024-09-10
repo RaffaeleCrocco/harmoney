@@ -90,7 +90,7 @@ const MoneyIland = () => {
           >
             <Info size={18} className="text-gray-300" />
             <div
-              className={` bg-white border right-6 top-0 p-2 text-xs rounded-md min-w-32 ${
+              className={` bg-white dark:bg-black border right-6 top-0 p-2 text-xs rounded-md min-w-32 ${
                 infoTooltipVisible ? "absolute" : "hidden"
               }`}
             >

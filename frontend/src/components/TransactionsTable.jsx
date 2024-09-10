@@ -78,7 +78,11 @@ const TransactionsTable = () => {
                       <div
                         className="h-4 w-1 rounded-l-sm "
                         key={item}
-                        style={{ backgroundColor: category.hexColor }}
+                        style={
+                          isSimpleModeOn
+                            ? {}
+                            : { backgroundColor: category.hexColor }
+                        }
                       ></div>
                       <div
                         style={
