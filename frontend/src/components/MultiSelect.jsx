@@ -80,7 +80,7 @@ const MultiSelect = () => {
             <div
               key={category._id}
               className={`flex gap-2 items-center cursor-pointer rounded-md p-1 ${
-                isSelected ? "bg-gray-200" : ""
+                isSelected ? "bg-gray-200 dark:bg-zinc-800" : ""
               }`}
               onClick={() => handleCategorySelected(category._id)}
             >

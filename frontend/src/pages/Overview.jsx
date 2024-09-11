@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MoneyIland from "../components/MoneyIland";
 import useContentStore from "../store/useContentStore";
 import useFiltersStore from "../store/useFiltersStore";
@@ -58,9 +58,6 @@ const Overview = () => {
         <CategoryGraph />
         <TransactionsGraph />
       </div>
-      {/* <div className="flex flex-col lg:flex-row p-5 lg:p-8 gap-5 lg:gap-8 pt-0 lg:pt-0">
-        <TransactionsTable />
-      </div> */}
     </div>
   );
 };
