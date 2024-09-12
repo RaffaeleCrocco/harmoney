@@ -44,6 +44,7 @@ const Categories = () => {
                 <div className="w-36 text-zinc-800 dark:text-gray-200">
                   {category.name}
                 </div>
+
                 {isSimpleModeOn ? (
                   ""
                 ) : (
@@ -51,9 +52,16 @@ const Categories = () => {
                     {category.description}
                   </div>
                 )}
+                <div className="ms-auto w-36 text-end text-zinc-800 dark:text-gray-200">
+                  {category.budget > 0 ? (
+                    <span>{category.budget} &euro;</span>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <div
                   style={{ backgroundColor: category.hexColor }}
-                  className="h-5 w-5 rounded-md ms-auto"
+                  className="h-5 w-5 rounded-md ms-4"
                 ></div>
               </div>
             ))

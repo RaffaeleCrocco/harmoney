@@ -17,6 +17,7 @@ const UpdateCategory = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [hexColor, setHexColor] = useState("");
+  const [budget, setBudget] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const UpdateCategory = () => {
         setName(response.data.data.name);
         setDescription(response.data.data.description);
         setHexColor(response.data.data.hexColor);
+        setBudget(response.data.data.budget);
         setLoading(false);
       })
       .catch((error) => {
@@ -44,6 +46,7 @@ const UpdateCategory = () => {
       name,
       description,
       hexColor,
+      budget,
     };
     console.log(data);
     setLoading(true);
@@ -122,6 +125,15 @@ const UpdateCategory = () => {
             className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800  dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
             placeholder="Descrizione facoltativa"
           />
+          {/* Budget della categoria */}
+          <input
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+            type="number"
+            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800   dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
+            placeholder="Budget mensile per la categoria (210€)"
+          />
+
           <div className="flex gap-5">
             <div
               onClick={() => {

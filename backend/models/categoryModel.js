@@ -5,6 +5,7 @@ const categorySchema = mongoose.Schema({
   hexColor: { type: String },
   description: { type: String },
   userId: { type: String, required: true },
+  budget: { type: Number },
 });
 
 export const Category = mongoose.model("Category", categorySchema);

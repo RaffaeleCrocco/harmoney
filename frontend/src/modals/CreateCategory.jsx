@@ -16,6 +16,7 @@ const CreateCategory = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [hexColor, setHexColor] = useState("#D0D0D0");
+  const [budget, setBudget] = useState();
   const [loading, setLoading] = useState(false);
 
   const handleSaveCategory = () => {
@@ -23,6 +24,7 @@ const CreateCategory = () => {
       name,
       description,
       hexColor,
+      budget,
     };
     setLoading(true);
     axios
@@ -74,6 +76,13 @@ const CreateCategory = () => {
             type="text"
             className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800   dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
             placeholder="Descrizione facoltativa"
+          />
+          {/* Budget della categoria */}
+          <input
+            onChange={(e) => setBudget(e.target.value)}
+            type="number"
+            className="inline-flex items-center gap-x-2.5 py-3 px-4 text-sm font-medium bg-white border text-gray-800   dark:bg-black dark:text-gray-200 dark:border-gray-600 rounded-md"
+            placeholder="Budget mensile per la categoria (210€)"
           />
 
           <div className="flex gap-5">

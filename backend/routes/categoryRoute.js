@@ -26,7 +26,7 @@ router.use(authenticateToken);
 
 // Create a new Category
 router.post("/create", async (req, res) => {
-  const { name, description, hexColor } = req.body;
+  const { name, description, hexColor, budget } = req.body;
   const userId = req.user.userId; // Extract userId from the token
 
   try {
@@ -43,7 +43,7 @@ router.post("/create", async (req, res) => {
     }
 
     // Create the new category
-    const newCategory = { name, description, userId, hexColor };
+    const newCategory = { name, description, userId, hexColor, budget };
     const category = await Category.create(newCategory);
 
     res.status(201).json(category);
@@ -61,12 +61,10 @@ router.delete("/:id", async (req, res) => {
     if (!result) {
       return res.status(400).json({ message: "category not found" });
     }
-    return res
-      .status(200)
-      .send({
-        deletedCategoryId: id,
-        message: "category deleted successfully",
-      });
+    return res.status(200).send({
+      deletedCategoryId: id,
+      message: "category deleted successfully",
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
@@ -96,7 +94,7 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params; // Extract the ID from the URL parameters
-  const { name, description, hexColor } = req.body;
+  const { name, description, hexColor, budget } = req.body;
   const userId = req.user.userId; // Extract userId from the token
 
   try {
@@ -107,7 +105,7 @@ router.put("/:id", async (req, res) => {
     // Update the category fields
     const updatedCategory = await Category.findByIdAndUpdate(
       id,
-      { name, description, hexColor },
+      { name, description, hexColor, budget },
       { new: true, runValidators: true }
     );
 
