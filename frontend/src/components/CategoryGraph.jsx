@@ -19,11 +19,13 @@ import { Maximize2, Minimize2 } from "lucide-react";
 const CategoryGraph = () => {
   //store
   const { categories, transactions, user } = useDataStore();
-  const { filters } = useFiltersStore();
+  const { filters, setFilters } = useFiltersStore();
   //component state
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("thisMonth");
   const [fullscreen, setFullscreen] = useState(false);
+  //utils
+  const token = localStorage.getItem("token");
   // to make recharts work as intended
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [maxExpenses, setMaxExpenses] = useState(0);
@@ -42,6 +44,16 @@ const CategoryGraph = () => {
     setData(functionData.categories);
     setMaxExpenses(functionData.maxExpense);
   }, [period, filters]);
+
+  const handleCategorySelected = (selectedCategoryId) => {
+    const isIncluded = filters.selectedCategories.includes(selectedCategoryId);
+
+    const updatedCategories = isIncluded
+      ? filters.selectedCategories.filter((id) => id !== selectedCategoryId)
+      : [...filters.selectedCategories, selectedCategoryId];
+
+    setFilters({ selectedCategories: updatedCategories }, token);
+  };
 
   const customTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
@@ -136,6 +148,7 @@ const CategoryGraph = () => {
             {data.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
+                onClick={() => handleCategorySelected(entry._id)}
                 fill={
                   user?.settings.isSimpleModeOn
                     ? index === hoveredIndex
