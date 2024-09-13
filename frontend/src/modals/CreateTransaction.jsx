@@ -143,7 +143,7 @@ const CreateTransaction = () => {
             </li>
           </ul>
           {/* Seleziona la data della transizione */}
-          <div className="w-full rounded-md bg-gray-200 dark:bg-black">
+          <div className="w-full rounded-md bg-gray-200 dark:bg-black dark:text-gray-200">
             <input
               onChange={(e) => {
                 // Get the input value
@@ -152,7 +152,7 @@ const CreateTransaction = () => {
                   // Convert the input value to a Date object
                   const date = new Date(value);
                   // Convert the Date object to an ISO string
-                  const isoDate = date.toISOString();
+                  const isoDate = date.toISOString().slice(0, 16);
                   // Set the ISO string to state
                   setDate(isoDate);
                 } else {
@@ -162,7 +162,7 @@ const CreateTransaction = () => {
               }}
               value={date ? date : undefined}
               type="datetime-local"
-              className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 dark:bg-black rounded-md text-sm "
+              className="w-full py-3 px-4 h-12 border border-gray-200 dark:bg-black dark:[color-scheme:dark] rounded-md text-sm "
             />
           </div>
           {/* Selezione della categoria della transazione */}

@@ -203,8 +203,9 @@ const UpdateTransaction = () => {
                   setDate("");
                 }
               }}
+              defaultValue={date.slice(0, 16)}
               type="datetime-local"
-              className="w-full py-3 px-4 pe-11 h-12 border border-gray-200 dark:bg-black rounded-md text-sm "
+              className="w-full py-3 px-4 h-12 border border-gray-200 dark:bg-black dark:[color-scheme:dark] rounded-md text-sm "
             />
           </div>
           {/* Selezione della categoria della transazione */}
